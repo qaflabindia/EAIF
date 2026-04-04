@@ -3098,12 +3098,121 @@ Each AI vendor or third-party AI service is assigned a vendor AI risk score at a
 
 ---
 
+---
+
+# Part XV — Supplementary Controls (AIUC-1 Crosswalk Gap Closure)
+
+## Provenance
+
+This part adds 13 controls identified as gaps through reconnaissance of the AIUC-1 crosswalk
+coverage (see `AIUC1_Crosswalk_Recon.md`). Source frameworks surfacing these gaps include:
+AIUC-1 (B003, C006, E005, E011, F001, F002), MITRE ATLAS (AML-M0007/M0008/M0014/M0022),
+OWASP LLM10, OWASP AIVSS, Cisco AI Security Framework, and IBM AI Risk Atlas.
+
+Controls are organized by domain and are additive to Parts V and VII.
+
+---
+
+## Domain 16 — Societal Harm Controls
+
+**Control objective:** AI systems are designed and monitored to prevent their use for cyber attacks,
+large-scale fraud, mass deception, and catastrophic harm including weapons of mass destruction
+uplift, attacks on critical infrastructure, and national security threats.
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| SOC-01 | **Cyber misuse prevention** — AI system design explicitly constrains use for generating malware, attack payloads, phishing content, credential harvesting tools, and exploit code. System prompt, output filter, and content policy must name these as prohibited output categories, not only rely on model-level refusals. | P | System Owner + Security | System prompt scope specification; content filter configuration; test evidence | MON-17 (security misuse signal); security classifier flag rate |
+| SOC-02 | **Catastrophic misuse prevention** — AI systems with access to scientific, chemical, biological, radiological, nuclear (CBRN) domain content must implement explicit output restrictions preventing uplift toward mass-casualty weapons, attack planning against critical infrastructure, or national security exploitation. This obligation is in addition to Tier 0 prohibition at intake. | P | Security + Legal + System Owner | CBRN restriction specification in system prompt and content filter; red-team test for CBRN uplift; legal sign-off | Red-team CBRN probe pass rate; any CBRN-category output detection event |
+
+---
+
+## Domain 4 Extension — Multi-Modal Injection Controls
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| PRM-09 | **Multi-modal input injection controls** — For AI systems accepting non-text inputs (images, audio, documents, video), injection scanning is applied to the non-text modality before model ingestion. Adversarial perturbations embedded in images or documents that could manipulate model behavior are treated as equivalent to text-based prompt injection. | P+D | Security + System Owner | Multi-modal injection test records; scanner configuration; applicable to Hybrid and any archetype processing non-text inputs | Multi-modal injection attempt rate; detection coverage rate |
+
+---
+
+## Domain 6 Extension — Resource Consumption Controls
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| TOL-08 | **Resource consumption limits** — AI system endpoints enforce token budget limits, request rate limits, and query quotas per session, user, and API key. Limits are defined at design time, documented in the system card, and enforced at EP-1 (API gateway). Prevents unbounded consumption, denial-of-service via resource exhaustion, and cost-harvesting attacks. | P | System Owner + Security | Rate limit configuration; quota enforcement test; architecture diagram confirming EP-1 enforcement | MON-16 (cost runaway signal); rate limit breach rate; quota exhaustion events |
+
+---
+
+## Domain 7 Extension — Code Security Output Control
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| OUT-07 | **AI-generated code security control** — For AI systems that generate executable code (code assistants, workflow automation generating scripts, agentic systems writing code for execution), output is scanned for common vulnerability patterns (injection flaws, hardcoded secrets, insecure cryptography, unsafe deserialization) before delivery. For systems where generated code is executed automatically (agentic systems), this control is mandatory and a gate to execution. | P+D | System Owner + Security | Code security scanner configuration; test evidence (known-vulnerable code samples); false positive/negative rate | Code vulnerability detection rate; vulnerable code execution events |
+
+---
+
+## Domain 10 Extension — Agent Identity Verification
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| AGT-10 | **Agent identity verification** — In multi-agent systems, each agent asserts a cryptographically verifiable identity before being granted execution scope by an orchestrator. Agent identity tokens are short-lived, scoped to the current task, and not transferable between sessions. Orchestrators reject agent interaction from unverified or impersonated agents. | P | System Owner + Identity | Agent identity token specification; trust boundary design review; test evidence for impersonation rejection | Agent identity verification failure events; unverified agent invocation attempts |
+
+---
+
+## Domain 11 Extensions — Model Supply Chain
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| MSC-07 | **Training data poisoning detection** — For models trained or fine-tuned by or on behalf of the enterprise, training data is scanned for poisoning indicators: statistical outliers in label distribution, anomalous data clusters, known adversarial poisoning patterns, and backdoor trigger candidate patterns. For externally trained models, vendor attestation of poisoning controls is required (maps to VND-01). | P+D | Model Owner + Security | Training data audit report; poisoning detection methodology; vendor attestation (for external models) | Anomalous training data cluster detection rate |
+| MSC-08 | **Training data quality assessment** — For models trained or fine-tuned by or on behalf of the enterprise, training data is assessed for: representativeness of the intended deployment population, contamination with out-of-distribution data, demographic bias distribution, and label quality. Assessment results are documented in the model card (MDL-01). | P | Model Owner + Data Owner | Training data quality assessment report; model card — training data section | — |
+
+---
+
+## Domain 12 Extension — Processing Location
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| CBJ-05 | **AI processing location decision record** — For every AI system, the decision to process AI workloads in cloud, on-premises, or hybrid infrastructure is documented, including: the rationale (cost, latency, sovereignty, security), the jurisdictions involved, the data classification of workloads processed in each location, and the risk assessment for the chosen configuration. This record is maintained in the system card and reviewed at every material infrastructure change. | P | System Owner + Privacy + Legal | Processing location decision record (system card section); data classification confirmation; review record at change | Infrastructure change events triggering re-assessment |
+
+---
+
+## Domain 8 Extension — Technical Disclosure Control
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| SEC-01 | **Technical AI disclosure limits** — The enterprise defines and enforces limits on the public or third-party disclosure of: AI model architecture details, training data sources and volumes, system prompt content, tool authorization configurations, and model evaluation methodology. Disclosure decisions for each AI system are documented and approved by the System Owner and Legal. Over-disclosure increases extraction attack surface; this control limits that surface without preventing required regulatory transparency. | P | System Owner + Legal + Security | Disclosure classification decision per system; approved disclosure scope (public / restricted / confidential); review record | Unauthorized technical disclosure events |
+
+---
+
+## Part XII Extension — Backdoor and Alignment Validation
+
+The following validation steps are added to the control validation matrix in Section 12.3:
+
+| Control | Test type | Test method | Pass criterion | Cadence | Failure response |
+|---|---|---|---|---|---|
+| **Backdoor trigger testing (MDL — Tier 1 and open-weight)** | Adversarial | Known backdoor trigger pattern library applied to model inputs; verify model behavior does not change on trigger activation | Zero trigger-activated behavioral deviations | Pre-deployment (mandatory for Tier 1 and open-weight); at model update | Deployment hold; model rejection; vendor notification |
+| **Cryptographic artifact verification (all production models)** | Integrity | SHA-256 or equivalent hash of model artifact verified against signed manifest at deployment and at each startup | Zero hash mismatches | At every deployment and at each service restart | Security incident; model halt; investigation |
+| **Alignment verification (Tier 1 models)** | Functional | Structured evaluation against enterprise policy prohibitions and behavioral requirements using adversarial probes targeting value-misaligned outputs | Pass rate >99.9% on policy probe set | Pre-deployment; at model update | Model rejection or remediation before deployment |
+
+---
+
+## Deliverable E Extension — New Monitoring Signals
+
+Two signals are added to the runtime monitoring catalog (Deliverable E):
+
+| Signal ID | Signal | Definition | Tier 1 | Tier 2 | Tier 3 | Tier 4 | Escalation threshold |
+|---|---|---|---|---|---|---|---|
+| MON-19 | **Cross-session memory integrity** | Detection of agent memory content that contains patterns inconsistent with the current session's legitimate inputs — indicating possible cross-session memory poisoning or injection via persistent memory | Continuous | Continuous | Not required | Not required | Any confirmed poisoning event triggers security incident |
+| MON-20 | **Code vulnerability detection rate** | Rate of AI-generated code outputs flagged by OUT-07 code security scanner as containing known vulnerability patterns | Continuous (where OUT-07 applies) | Continuous (where OUT-07 applies) | Not required | Not required | Rising rate or any vulnerable code reaching execution triggers immediate review |
+
+---
+
 ## Appendix — Version History (Updated)
 
 | Version | Date | Changes |
 |---|---|---|
 | 1.0 | April 2026 | Initial framework (Parts I–X, Deliverables A–H) |
-| 1.1 | April 2026 | Added Parts XI–XIV addressing: Control Implementation Architecture (enforcement points, prompt registry design, data plane mapping); Control Validation and Red-Teaming System (continuous validation, red-team pipeline, degradation detection); Developer Workflow Integration (CI/CD gates, pre-commit hooks, shadow AI detection, agent usage constraints); Governance Cost Model (time-to-approval SLAs, cost benchmarks, ROI metrics, control cost vs risk reduction matrix); Enhanced Vendor Governance (vendor AI risk scoring, performance SLAs by tier, multi-model fallback architecture, silent model update controls) |
+| 1.1 | April 2026 | Added Parts XI–XIV: Control Implementation Architecture; Control Validation and Red-Teaming System; Developer Workflow Integration; Governance Cost Model; Enhanced Vendor Governance |
+| 1.2 | April 2026 | Added Part XV: 13 supplementary controls (SOC-01/02, PRM-09, TOL-08, OUT-07, AGT-10, MSC-07/08, CBJ-05, SEC-01) and 3 validation extensions (backdoor testing, cryptographic artifact verification, alignment verification) and 2 new monitoring signals (MON-19/20), derived from AIUC-1 crosswalk reconnaissance across NIST AI RMF, ISO 42001, EU AI Act, OWASP LLM Top 10, OWASP AIVSS, MITRE ATLAS, IBM AI Risk Atlas, Cisco AI Security Framework, and CSA AI Controls Matrix |
 
 **Next review date:** April 2027 or at material regulatory change, whichever is earlier.
 
