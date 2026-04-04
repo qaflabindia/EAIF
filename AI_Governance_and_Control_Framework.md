@@ -2471,6 +2471,646 @@ Before this framework is published and adopted, the following validation questio
 
 *© Enterprise. Internal governance document. Not for external distribution without authorization.*
 
+---
+
+# Part XI — Control Implementation Architecture
+
+## Review Finding Addressed
+
+> *"You define controls, monitoring, and evidence — but you don't define where and how these controls are implemented in the engineering stack."*
+
+This part resolves that gap. It specifies the control plane, data plane, and enforcement points for every control domain in Part V. Without this, the framework is well-specified at design time but weakly implemented at runtime.
+
+---
+
+## 11.1 Control Plane vs Data Plane
+
+Enterprise AI controls operate across two planes:
+
+| Plane | Definition | Examples |
+|---|---|---|
+| **Control Plane** | Configuration, policy, and governance state — what the system is authorized to do, under what conditions, with what evidence | System prompt registry; tool authorization register; risk tier record; model version registry; user access control matrix |
+| **Data Plane** | The runtime flow of prompts, tokens, retrieved content, tool calls, and outputs — where controls are enforced in real time | Prompt injection detector; output safety classifier; action scope enforcer; audit log writer; drift monitor |
+
+**Key principle:** Control plane settings determine what is allowed. Data plane enforcement ensures it. A control that exists only in the control plane but has no data plane enforcement point is a policy claim, not a control.
+
+---
+
+## 11.2 Enforcement Point Architecture
+
+The following diagram describes the canonical enforcement point architecture for an enterprise AI system. All controls in Part V map to one or more of these enforcement points.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     ENTERPRISE AI SYSTEM                        │
+│                                                                 │
+│  User / Application                                             │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌──────────────────────────────────────┐                       │
+│  │  EP-1: API Gateway / Entry Point     │ ← IAM, rate limiting, │
+│  │         (first enforcement point)    │   session init        │
+│  └───────────────────┬──────────────────┘                       │
+│                      │                                          │
+│                      ▼                                          │
+│  ┌──────────────────────────────────────┐                       │
+│  │  EP-2: Prompt Processing Middleware  │ ← PRM controls        │
+│  │   • System prompt injection          │   Injection detection │
+│  │   • User prompt scope enforcement    │   Context boundary    │
+│  │   • Injection detection              │   Jailbreak check     │
+│  └───────────────────┬──────────────────┘                       │
+│                      │                                          │
+│          ┌───────────┴───────────┐                              │
+│          ▼                       ▼                              │
+│  ┌───────────────┐      ┌─────────────────────┐                │
+│  │  EP-3:        │      │  EP-4: Retrieval     │                │
+│  │  Model API    │      │  Pipeline            │ ← RET controls  │
+│  │  (inference)  │      │  • Corpus access     │   Grounding     │
+│  │               │      │  • Freshness check   │   Citation      │
+│  └───────┬───────┘      │  • Indirect inject   │                │
+│          │              └──────────┬────────────┘               │
+│          └───────────┬─────────────┘                            │
+│                      │                                          │
+│                      ▼                                          │
+│  ┌──────────────────────────────────────┐                       │
+│  │  EP-5: Output Processing Layer       │ ← OUT controls        │
+│  │   • Safety classification            │   GEN controls        │
+│  │   • Content policy filter            │   Privacy leak detect │
+│  │   • PII detection                    │   Hallucination check │
+│  │   • Disclosure injection             │                       │
+│  └───────────────────┬──────────────────┘                       │
+│                      │                                          │
+│          ┌───────────┴───────────┐                              │
+│          ▼                       ▼                              │
+│  ┌───────────────┐      ┌─────────────────────┐                │
+│  │  EP-6: Tool   │      │  EP-7: Audit Log     │ ← LOG controls  │
+│  │  Execution    │      │  Writer              │   Tamper-evident│
+│  │  Gate         │      │  (all events)        │                │
+│  │  (agentic)    │      └─────────────────────┘                │
+│  └───────┬───────┘                                              │
+│          │                                                       │
+│          ▼                                                       │
+│  ┌──────────────────────────────────────┐                       │
+│  │  EP-8: HITL Queue (where required)   │ ← AGT-03, TOL-04      │
+│  │   • Irreversible action hold         │   Human review        │
+│  │   • Threshold-triggered review       │   Override logging    │
+│  └──────────────────────────────────────┘                       │
+│                                                                 │
+│  ┌──────────────────────────────────────┐                       │
+│  │  EP-9: Monitoring Sidecar           │ ← Deliverable E signals│
+│  │   • Signal collection               │   Drift detection      │
+│  │   • Threshold alerting              │   Cost runaway         │
+│  │   • KRI breach notification         │                        │
+│  └──────────────────────────────────────┘                       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 11.3 Control-to-Enforcement-Point Mapping
+
+| Control domain | Primary enforcement point | Implementation technology options |
+|---|---|---|
+| **IAM (Domain 8)** | EP-1 (API Gateway) | OAuth2/OIDC; enterprise SSO; API key management; RBAC at gateway layer |
+| **Prompt governance — system prompt (Domain 4, PRM-01–03)** | EP-2 (Prompt Middleware) + Control Plane | **Prompt registry service** (Git-backed version store with signed commits; deployment pipeline reads current approved version only); runtime injection of approved system prompt at EP-2 |
+| **Prompt governance — user scope + injection (Domain 4, PRM-04–08)** | EP-2 (Prompt Middleware) | Custom middleware or open-source guardrail library (NeMo Guardrails, Guardrails AI); pattern-matching + LLM-based classification for injection detection |
+| **Retrieval controls (Domain 5)** | EP-4 (Retrieval Pipeline) | Vector database access controls (role-based); freshness metadata in document store; content classification tags at index time |
+| **Output safety (Domain 7, OUT-01–02)** | EP-5 (Output Layer) | Safety classifier API (Azure Content Safety, AWS Bedrock Guardrails, enterprise-deployed classifier); middleware post-processor |
+| **Privacy leak detection (DAT-06, MON-15)** | EP-5 (Output Layer) | PII detection model (Microsoft Presidio, AWS Comprehend, custom); regex + ML hybrid |
+| **Tool execution gate (Domain 6, Domain 10)** | EP-6 (Tool Gate) | Tool call interceptor in agent framework; allowlist enforcement before execution; parameter validation before dispatch |
+| **HITL enforcement (AGT-03, TOL-04)** | EP-8 (HITL Queue) | Workflow engine (Temporal, Airflow, custom); approval queue with SLA alerting; override event logging |
+| **Audit logging (Domain 14)** | EP-7 (Audit Log Writer) | Write-once log store (AWS CloudTrail, GCP Cloud Audit Logs, Azure Monitor, on-prem SIEM); structured log schema; integrity hashing |
+| **Monitoring signals (Deliverable E)** | EP-9 (Monitoring Sidecar) | OpenTelemetry instrumentation; Prometheus + Grafana; custom signal collectors; KRI alerting via PagerDuty or equivalent |
+| **Drift detection (MON-10–12)** | EP-9 (Monitoring Sidecar) | Evidently AI, Arize AI, WhyLabs, or custom statistical drift detectors on input/output distributions |
+
+---
+
+## 11.4 Prompt Registry — Reference Implementation Design
+
+The system prompt is the primary behavioral governor of any LLM-based AI system. It must be treated as a governed artifact with the same discipline as production code.
+
+**Required components:**
+
+| Component | Specification |
+|---|---|
+| **Storage** | Git repository (dedicated `prompts/` repo or directory) with branch protection; all changes via pull request; no direct commit to main |
+| **Versioning** | Semantic versioning (`v1.2.3`); each version tagged and immutable after merge; SHA-256 hash of prompt content stored alongside version |
+| **Access control** | Write access restricted to named System Owners + AI Governance Office; read access to deployment pipeline only (service account); no human read access to production system prompt outside this repo |
+| **Approval workflow** | PR raised by System Owner; reviewed and approved by AI Gov Office (and AI Risk Committee for Tier 1 systems) before merge; approval record captured in PR metadata |
+| **Deployment** | CI/CD pipeline reads approved version at deployment; runtime system injects approved prompt at EP-2; no manual prompt injection in production |
+| **Audit trail** | Git log provides immutable audit trail of every change, author, reviewer, timestamp, and approval |
+| **Change management** | Any prompt change = material change under CHG-01; triggers CHG-02 risk re-evaluation and CHG-05 post-change monitoring period |
+
+---
+
+## 11.5 Data Plane Control Implementation by Archetype
+
+| Archetype | Critical EP | Minimum implementation stack |
+|---|---|---|
+| **Chat-First** | EP-2, EP-5, EP-7, EP-9 | Prompt middleware (NeMo / custom); output safety classifier; structured audit log; monitoring sidecar |
+| **RAG** | EP-2, EP-4, EP-5, EP-7, EP-9 | Above + retrieval access controls; indirect injection scanner on retrieved chunks before model ingestion; grounding validator |
+| **Agentic Single-Agent** | EP-2, EP-5, EP-6, EP-7, EP-8, EP-9 | Above + tool call interceptor; reversibility enforcer; HITL queue; action chain audit log |
+| **Agentic Multi-Agent** | All EPs | Above, replicated per agent; inter-agent trust token; cross-agent scope inheritance enforcer; unified action chain log |
+| **Open-Weight Self-Hosted** | EP-5 (mandatory enterprise layer), EP-7, EP-9 | Enterprise safety classifier deployed as mandatory post-processing layer; no reliance on model's intrinsic safety; tamper-evidence verification at startup |
+| **Workflow Automation** | EP-6, EP-7, EP-8, EP-9 | Exception queue for anomalous outputs; scheduled output sampling for quality review; change detection on AI component |
+| **Decision-Support** | EP-5, EP-7, EP-8, EP-9 | Fairness metric collector; explainability extractor; human decision logging (what the human decided vs AI recommendation) |
+
+---
+
+*End of Part XI.*
+
+---
+
+# Part XII — Control Validation and Red-Teaming System
+
+## Review Finding Addressed
+
+> *"You define monitoring signals, but not unit tests for controls or control validation pipelines. Controls exist but degrade silently."*
+
+This part defines how controls are continuously tested and validated — not just at deployment, but throughout the production lifecycle. A control that passes at deployment but degrades silently is not a control.
+
+---
+
+## 12.1 Control Validation Philosophy
+
+**Fact:** Controls degrade. Safety classifiers accumulate false negatives as adversaries adapt. Injection detectors miss new patterns. Drift thresholds become miscalibrated as model behavior shifts. HITL queues accumulate and stop being reviewed.
+
+**Inference:** Designing a control at deployment and not testing it continuously is equivalent to installing a fire alarm and never testing the battery.
+
+**Recommendation:** Every control in the master control matrix (Part V) must have: (a) a defined test, (b) a test cadence, and (c) a test failure response. Control testing is a first-class operational activity, not a one-time pre-deployment task.
+
+---
+
+## 12.2 Control Validation Framework
+
+### Three types of control validation
+
+| Type | Definition | Cadence | Triggered by |
+|---|---|---|---|
+| **Deployment validation** | Control is tested before any production deployment; gate cannot be passed without passing tests | Every deployment | Pre-deployment gate (Deliverable D Stage 5) |
+| **Continuous validation** | Control is tested automatically on a schedule in production | Daily to monthly (by control criticality) | Automated CI/CD schedule or monitoring pipeline |
+| **Event-triggered validation** | Control is tested immediately following a defined event (incident, model update, corpus change, system prompt change) | On event | Change management trigger; incident closure |
+
+---
+
+## 12.3 Control Validation Matrix
+
+For each critical control, the following test design is mandatory:
+
+| Control | Test type | Test method | Pass criterion | Cadence | Failure response |
+|---|---|---|---|---|---|
+| **PRM-06 — Prompt injection detection** | Adversarial | Synthetic injection test suite (see Section 12.4); known jailbreak pattern library | Detection rate >99% on known patterns; <1% false positive on benign inputs | Weekly automated | Immediate alert; injection pattern library update; control review within 48h |
+| **PRM-07 — Jailbreak pattern library** | Coverage | New pattern identification: monitor public jailbreak disclosures; run against detection | Library updated within 72h of public disclosure of new pattern | Continuous (event-triggered) | Library update; re-run injection detection test |
+| **OUT-01 — Output safety classifier** | Precision/recall | Holdout set of labeled safe/unsafe outputs; adversarial samples | Precision >95%; recall >95% on holdout set | Monthly; re-run at model update | Classifier retraining or replacement; deployment hold pending validation |
+| **AGT-03 — HITL enforcement** | Functional | Synthetic irreversible action trigger; verify queue creation and SLA | 100% of triggered actions enter queue; queue SLA met | Weekly | HITL configuration review; immediate escalation to AI Gov Office |
+| **TOL-01 — Tool authorization** | Functional | Attempt unauthorized tool invocation in test environment | 100% of unauthorized invocations blocked; zero false positives on authorized tools | At every deployment; weekly synthetic test | Tool gate configuration review; deployment hold |
+| **LOG-01 — Audit log completeness** | Sampling | Random sample of 1000 interactions; verify log entry presence and schema completeness | >99.5% log completeness; zero schema violations in sample | Daily automated | Log pipeline investigation; escalation if >0.5% gap |
+| **LOG-02 — Log tamper-evidence** | Integrity | Hash verification of log entries against stored checksums | Zero hash mismatches | Daily automated | Security incident; investigation |
+| **DAT-06 — Privacy leak detection** | Precision/recall | Holdout set with synthetic PII patterns; adversarial PII obfuscation patterns | Precision >97%; recall >95% | Monthly | PII detector update; review of false negative patterns |
+| **RET-03 — Corpus freshness** | Functional | Query for known stale documents; verify freshness metadata | Zero stale documents beyond defined threshold | Daily automated | Corpus refresh trigger; staleness alert |
+| **MON-10/11 — Drift detection** | Statistical | Synthetic distribution shift injection on input/output | Drift alert within defined detection window | Monthly calibration; continuous signal | Threshold recalibration; model review |
+
+---
+
+## 12.4 Red-Team Pipeline Design
+
+Red-teaming for AI systems must be a **continuous pipeline**, not a one-time pre-deployment exercise. The red-team pipeline runs on a defined schedule and on event triggers (model update, system prompt change, new jailbreak pattern disclosed publicly).
+
+### Red-team pipeline architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│           RED-TEAM PIPELINE                     │
+│                                                 │
+│  1. Attack Library (version-controlled)         │
+│     ├── Known jailbreak patterns                │
+│     ├── Injection templates (direct)            │
+│     ├── Injection templates (indirect / RAG)    │
+│     ├── Adversarial fairness probes             │
+│     ├── Privacy extraction attempts             │
+│     └── Tool misuse scenarios (agentic)         │
+│                          │                      │
+│  2. Synthetic Attack     │                      │
+│     Generator            │                      │
+│     (automated          ▼                       │
+│     permutation of  ┌──────────────┐            │
+│     known patterns) │ Test Runner  │            │
+│                     │ (isolated    │            │
+│                     │  environment)│            │
+│                     └──────┬───────┘            │
+│                            │                    │
+│  3. Result Classifier       ▼                   │
+│     ├── Pass: control held                      │
+│     ├── Warn: control held; pattern near edge   │
+│     └── Fail: control breached                  │
+│                            │                    │
+│  4. Report + Alert          ▼                   │
+│     ├── Auto-report to AI Gov Office            │
+│     ├── Fail → block deployment / alert         │
+│     └── Update attack library with new variants │
+└─────────────────────────────────────────────────┘
+```
+
+### Red-team cadence by tier
+
+| System tier | Minimum red-team cadence | Trigger-based red-team events |
+|---|---|---|
+| Tier 1 | Monthly full pipeline run | Model update; system prompt change; new public jailbreak disclosure; post-incident |
+| Tier 2 | Quarterly full pipeline run | Model update; system prompt change; post-incident |
+| Tier 3 | Annual (injection detection only) | Post-incident |
+| Tier 4 | Not required | Not required |
+
+### Tooling options
+
+| Tool | Best for | Notes |
+|---|---|---|
+| **PyRIT (Microsoft)** | GenAI adversarial testing; multi-turn attack simulation | Open-source; well-documented; recommended for enterprise adoption |
+| **Garak** | LLM vulnerability scanning; systematic probe library | Open-source; broad probe coverage |
+| **PromptBench** | Robustness evaluation; adversarial prompt generation | Research-grade; useful for academic validation |
+| **Custom synthetic attack generator** | Enterprise-specific attack patterns; proprietary use-case scenarios | Required for industry-specific attack surfaces (financial, healthcare) |
+| **NeMo Guardrails test suite** | Rail-specific validation for NeMo-deployed systems | Platform-specific |
+
+---
+
+## 12.5 Control Degradation Detection
+
+**Problem:** Controls degrade between red-team runs. Safety classifier accuracy decreases as adversaries adapt. Injection detection misses new patterns. Drift thresholds become miscalibrated.
+
+**Solution:** Control degradation is detected through the following signals, in addition to scheduled red-team runs:
+
+| Degradation signal | Detection mechanism | Response |
+|---|---|---|
+| Rising safety classifier flag rate without corresponding incident increase | Statistical process control on MON-02; alert on sustained trend | Classifier recalibration; red-team trigger |
+| Falling user escalation rate with no service improvement change | MON-13 statistical trend; correlated with human override rate | Investigate whether users have stopped using escalation (learned helplessness) vs system improvement |
+| HITL queue growing faster than review capacity | Queue depth KCI; dwell time KCI | HITL design review; capacity assessment; if queue is systematically skipped → control failure |
+| Log completeness declining | MON-14 daily automated check | Log pipeline investigation; escalation |
+| Drift alert threshold never triggering | Absence of alert where drift is expected (e.g., seasonal patterns) | Threshold calibration review; synthetic drift injection test |
+
+---
+
+*End of Part XII.*
+
+---
+
+# Part XIII — Developer Workflow Integration
+
+## Review Finding Addressed
+
+> *"Developers will bypass governance. You don't define how this integrates with actual developer workflows — CI/CD integration, PR checks, pre-commit hooks, agent usage constraints."*
+
+This part specifies the developer-facing operating model: how governance is enforced in the build pipeline, not just in committee. Governance that is not embedded in developer workflows will be worked around.
+
+---
+
+## 13.1 Governance-as-Code Design Principle
+
+**Fact:** Governance enforced only through committee review and documentation requirements will be circumvented under delivery pressure. Developers route around friction they cannot avoid technically.
+
+**Recommendation:** Governance requirements that can be technically enforced must be technically enforced — in pre-commit hooks, CI/CD pipeline gates, and deployment checks. This is not a substitute for governance forums; it is the enforcement mechanism that makes governance reliable at scale.
+
+**Governance-as-Code principle:** Every governance requirement that can be expressed as a machine-checkable condition should be expressed that way. Human review is reserved for conditions that require judgment.
+
+---
+
+## 13.2 CI/CD Integration Architecture
+
+```
+Developer Push / PR
+        │
+        ▼
+┌─────────────────────────────────────────────────────┐
+│            PRE-COMMIT HOOKS (local)                 │
+│  ✓ System card presence check                       │
+│  ✓ System prompt hash integrity (matches registry)  │
+│  ✓ Prohibited dependency check (banned models/libs) │
+│  ✓ Secret / credential scan                         │
+└───────────────────────────┬─────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────┐
+│            CI PIPELINE GATE 1: Intake Check         │
+│  ✓ AI system registered in inventory                │
+│  ✓ Risk tier assigned                               │
+│  ✓ Business Owner and System Owner named            │
+│  ✗ Fail → block merge; link to intake form          │
+└───────────────────────────┬─────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────┐
+│            CI PIPELINE GATE 2: Documentation Check  │
+│  ✓ System card present and schema-valid             │
+│  ✓ Model card present (Tier 1/2)                    │
+│  ✓ Prompt registry reference valid (hash match)     │
+│  ✓ Tool authorization register present (agentic)    │
+│  ✗ Fail → block merge; generate missing-doc report  │
+└───────────────────────────┬─────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────┐
+│            CI PIPELINE GATE 3: Control Tests        │
+│  ✓ Control validation tests pass (Section 12.3)     │
+│  ✓ Injection detection test suite passes            │
+│  ✓ Output safety test suite passes                  │
+│  ✓ Tool authorization test passes (agentic)         │
+│  ✓ Monitoring hooks present (sidecar config valid)  │
+│  ✗ Fail → block merge; test failure report          │
+└───────────────────────────┬─────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────┐
+│            CI PIPELINE GATE 4: Security Scan        │
+│  ✓ SAST / dependency vulnerability scan             │
+│  ✓ Model supply chain integrity check (hash)        │
+│  ✓ Open-weight model tamper-evidence verified       │
+│  ✗ Fail → block merge; security finding report      │
+└───────────────────────────┬─────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────┐
+│         DEPLOYMENT GATE: Tier-Specific Approval     │
+│  Tier 1 → AI Risk Committee approval token required │
+│  Tier 2 → AI Gov Office approval token required     │
+│  Tier 3 → AI Gov Office notification confirmed      │
+│  Tier 4 → Business Owner self-cert recorded         │
+│  ✗ Fail → block deployment; approval request sent   │
+└───────────────────────────┬─────────────────────────┘
+                            │
+                            ▼
+                     Production Deploy
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────┐
+│         POST-DEPLOY: Monitoring Activation Check    │
+│  ✓ Monitoring sidecar active (all Deliverable E     │
+│    signals reporting)                               │
+│  ✓ Audit log stream verified                        │
+│  ✓ Alert routing confirmed                          │
+│  ✗ Fail → deployment marked incomplete; alert       │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 13.3 Pre-Commit Hook Specification
+
+The following hooks are deployed to all developer machines and enforced via the enterprise developer toolchain (e.g., `pre-commit` framework):
+
+| Hook | What it checks | Failure behavior |
+|---|---|---|
+| `ai-inventory-check` | Does the repo contain an AI system registration file? Is the system ID present in the central inventory? | Block commit; print inventory registration link |
+| `system-card-schema` | Is `system-card.yaml` (or equivalent) present and schema-valid? | Block commit; print schema validation errors |
+| `prompt-registry-integrity` | Does the system prompt file hash match the approved version in the prompt registry? | Block commit; print hash mismatch; direct to prompt change approval process |
+| `banned-model-check` | Does the code reference any banned model endpoints or open-weight models not in the approved model register? | Block commit; print banned model reference |
+| `secret-scan` | Are any API keys, tokens, or credentials hardcoded? | Block commit; print location of exposed secret |
+| `monitoring-hook-check` | Are monitoring instrumentation calls present in the AI service code? (OpenTelemetry or equivalent) | Warn on commit; block deployment gate |
+
+---
+
+## 13.4 PR Review Requirements by Tier
+
+Pull requests for AI systems include automated checks (above) plus required human review:
+
+| Tier | Required human reviewers on PR | Additional PR requirements |
+|---|---|---|
+| Tier 1 | System Owner + AI Gov Office reviewer + Security reviewer | Red-team report attached; validation report reference; AI Risk Committee approval token |
+| Tier 2 | System Owner + AI Gov Office reviewer | Security and privacy sign-off; approval token |
+| Tier 3 | System Owner | AI Gov Office notified (automated); documentation checks pass |
+| Tier 4 | Business Owner acknowledgment | Automated checks pass |
+
+---
+
+## 13.5 Agent Usage Constraints for Developers
+
+Enterprises deploying AI coding assistants (GitHub Copilot, Cursor, internal coding agents) face a specific governance challenge: the development tool is itself an AI system that may generate AI governance artifacts (system cards, prompts, control configurations) that then require governance. Left ungoverned, the AI coding assistant becomes a shadow governance pathway.
+
+**Controls for developer AI tool usage:**
+
+| Control | Implementation |
+|---|---|
+| **Approved tool register** | Only enterprise-approved AI coding assistants are permitted on developer machines; enforced via endpoint management policy |
+| **Data scope constraints** | AI coding tools configured to exclude: production data, model weights, system prompts in production repos, and access credentials from their context |
+| **Generated artifact review** | AI-generated governance artifacts (system cards, risk assessments) must be human-reviewed and signed before submission; automated tools cannot self-approve governance documentation |
+| **Prompt governance for coding agents** | Enterprise-wide system prompt for coding AI tools is centrally managed and version-controlled (same as PRM-01 principle applied to developer tools) |
+| **Usage audit** | AI coding tool usage logged at the enterprise license level; anomalous usage patterns (e.g., bulk prompt injection pattern generation) flagged for security review |
+
+---
+
+## 13.6 Shadow AI Detection
+
+**Problem:** Governance misallocation (Section 8.5) is worsened by shadow AI — AI systems deployed outside governance channels. Shadow AI is the most common consequence of governance that is too slow for low-risk use cases.
+
+**Detection mechanisms:**
+
+| Detection method | What it finds | Cadence |
+|---|---|---|
+| **Network egress analysis** | Outbound API calls to known AI provider endpoints (OpenAI, Anthropic, Cohere, Mistral, etc.) from non-registered service accounts or endpoints | Continuous; anomaly-based alerting |
+| **Cloud cost anomaly detection** | Unexpected AI inference costs in cloud accounts not associated with registered AI systems | Weekly |
+| **Application dependency scan** | CI/CD pipeline scans for AI SDK imports (openai, anthropic, langchain, llamaindex, etc.) in repos without corresponding AI inventory registration | At every build |
+| **SaaS AI tool procurement monitoring** | Procurement and expense tracking for AI SaaS subscriptions not approved through the vendor assessment process | Monthly |
+| **Employee survey (annual)** | Structured survey asking whether employees use AI tools not sanctioned by the enterprise | Annual |
+
+**Response to shadow AI detection:**
+
+1. Identify system and Business Owner
+2. Classify system using Deliverable B tiering criteria
+3. If Tier 3 or 4: fast-track into governance (fast-lane, Section 8.3); do not penalize proactively
+4. If Tier 1 or 2: mandatory immediate review; deployment pause pending governance completion
+5. Root cause analysis: was shadow AI driven by governance friction? → Governance process improvement required
+
+---
+
+*End of Part XIII.*
+
+---
+
+# Part XIV — Governance Cost Model and Enhanced Vendor Governance
+
+## Review Finding Addressed (Cost Model)
+
+> *"You argue governance should not slow adoption but you don't quantify cost of control, latency added, or developer friction. Without economics, governance drifts toward over-control."*
+
+## Review Finding Addressed (Vendor Governance)
+
+> *"No benchmarking model, no performance SLAs tied to risk, no fallback strategy. Missing: model degradation at vendor side, API outage impact, silent model updates."*
+
+---
+
+## 14.1 Governance Cost Model
+
+### Principle
+
+Governance has a real cost. Pretending otherwise leads to one of two failure modes: (a) governance is under-resourced and becomes a rubber stamp, or (b) governance is over-resourced and becomes a bottleneck. The cost model makes governance economics visible and manageable.
+
+### Cost dimensions
+
+| Cost dimension | Definition | Measurement |
+|---|---|---|
+| **Time-to-approval** | Calendar time from intake submission to approval to proceed (at each tier) | Days; tracked in intake system |
+| **Documentation cost** | Effort to produce required governance documentation | Person-hours per use case; tracked by tier |
+| **Review cost** | Committee and reviewer time per use case | Person-hours per use case; tracked by tier |
+| **Control implementation cost** | Engineering effort to implement required controls | Story points or person-hours per control domain |
+| **Monitoring cost** | Infrastructure and engineering cost of runtime monitoring | $ per month per system; scaled by signal set |
+| **Compliance cost** | Effort for regulatory mapping, audit preparation, certification | Person-hours per system per year |
+
+---
+
+### Target SLAs by tier (time-to-approval)
+
+These are governance performance commitments — the AI Governance Office must meet them to maintain credibility and prevent shadow AI.
+
+| Tier | Intake-to-approval SLA | Design gate SLA | Pre-deployment gate SLA |
+|---|---|---|---|
+| **Tier 0** | Immediate (automated block) | N/A | N/A |
+| **Tier 1** | 10 business days (intake to AI Risk Committee endorsement) | 10 business days | 15 business days (evidence pack review) |
+| **Tier 2** | 5 business days | 5 business days | 7 business days |
+| **Tier 3** | 3 business days | 2 business days | 2 business days |
+| **Tier 4** | 1 business day (automated + silent approval) | None | None |
+
+**SLA breach response:** Any governance SLA breach is logged and reported monthly to the Executive AI Council. Repeated SLA breaches in a tier are treated as a governance capacity problem requiring resource response, not as a justification for bypassing governance.
+
+---
+
+### Cost benchmarks by tier (indicative; enterprise-calibrate at program launch)
+
+| Tier | Documentation effort | Review effort | Control implementation | Annual monitoring cost (indicative) |
+|---|---|---|---|---|
+| **Tier 1** | 40–80 person-hours | 20–40 person-hours (committee + legal + compliance) | 80–200 engineering hours | $15,000–$50,000/year per system |
+| **Tier 2** | 15–30 person-hours | 8–15 person-hours | 30–80 engineering hours | $5,000–$15,000/year per system |
+| **Tier 3** | 4–8 person-hours | 2–4 person-hours | 8–20 engineering hours | $1,000–$5,000/year per system |
+| **Tier 4** | 1–2 person-hours | <1 person-hour | 2–4 engineering hours | <$1,000/year per system |
+
+### Governance ROI metrics
+
+| Metric | Definition | Target |
+|---|---|---|
+| **Cost of governance per system** | Total governance cost (documentation + review + controls + monitoring) divided by number of systems | Tracked and benchmarked annually; should decrease as templates and automation mature |
+| **Incident cost avoided** | Estimated cost of incidents prevented by controls (using historical incident cost data) | Governance ROI = incident cost avoided / governance cost; target >3:1 |
+| **Time-to-value** | Days from business idea to production deployment by tier | Decreasing trend as fast-lane and pre-approved patterns are adopted |
+| **Shadow AI rate** | Percentage of AI systems discovered in production not registered at intake | Target: <5%; declining trend |
+| **Governance SLA compliance** | Percentage of intakes processed within tier SLA | Target: >95% |
+| **Audit finding rate** | Number of material audit findings per governance review | Decreasing trend; target: zero critical findings |
+
+---
+
+### Control cost vs risk reduction matrix
+
+Not all controls have equal ROI. The following matrix guides investment prioritization:
+
+| Control | Implementation cost | Risk reduction impact | Priority |
+|---|---|---|---|
+| PRM-01–03 (System prompt versioning) | Low (Git + access control) | High (primary behavioral governor) | **Critical — implement first** |
+| LOG-01–02 (Audit log + integrity) | Low to Medium | High (enables all audit and incident response) | **Critical** |
+| OUT-01 (Safety classifier) | Medium | High (primary detective control for harmful output) | **Critical** |
+| PRM-06 (Injection detection) | Medium | High (primary attack vector for GenAI) | **Critical** |
+| AGT-01–03 (Agentic scope + HITL) | Medium to High | Very High for agentic systems | **Critical for agentic** |
+| INT-02 (Prohibited use block at intake) | Low (form validation) | High (stops Tier 0 at entry) | **Critical** |
+| MON-10–12 (Drift detection) | Medium | Medium-High | High |
+| DAT-06 (Privacy leak detection) | Medium | High (regulatory exposure) | High |
+| MSC-03 (Tamper-evidence for open-weight) | Low | High for open-weight archetype | High for open-weight |
+| RET-03 (Corpus freshness) | Low | Medium | Medium |
+| VND-03 (Vendor model change notification) | Low (contractual) | Medium-High | High |
+
+---
+
+## 14.2 Enhanced Vendor Governance
+
+### Vendor AI Risk Scoring Model
+
+Each AI vendor or third-party AI service is assigned a vendor AI risk score at assessment and reviewed annually. The score determines the depth of due diligence and the contractual requirements.
+
+**Scoring dimensions:**
+
+| Dimension | Weight | Score criteria |
+|---|---|---|
+| **Data handling** | 25% | 5 = zero retention, no training, contractually guaranteed; 3 = opt-out available; 1 = unclear or adverse terms |
+| **Model transparency** | 20% | 5 = full model card, training data documented, change notification SLA; 3 = partial; 1 = opaque |
+| **Security posture** | 20% | 5 = SOC 2 Type II + ISO 27001 + pen test; 3 = SOC 2 Type II only; 1 = no certifications |
+| **Reliability and SLA** | 15% | 5 = 99.9%+ SLA + compensation; 3 = 99.5% SLA; 1 = best-effort / no SLA |
+| **Audit rights** | 10% | 5 = full audit rights contractually; 3 = questionnaire-based; 1 = no audit rights |
+| **Incident notification** | 10% | 5 = <24h notification SLA contractually; 3 = reasonable efforts; 1 = no obligation |
+
+**Score interpretation:**
+
+| Score | Risk rating | Required action |
+|---|---|---|
+| 4.5–5.0 | Low vendor risk | Standard annual review |
+| 3.5–4.4 | Medium vendor risk | Enhanced monitoring; annual review; contractual improvement plan |
+| 2.5–3.4 | High vendor risk | Mandatory compensating controls; semi-annual review; executive awareness |
+| <2.5 | Critical vendor risk | Use prohibited for Tier 1 systems; waiver required for Tier 2; immediate improvement plan or replacement |
+
+---
+
+### Vendor Performance SLAs Tied to Risk Tier
+
+| SLA dimension | Tier 1 systems | Tier 2 systems | Tier 3/4 systems |
+|---|---|---|---|
+| **API availability SLA** | 99.9% monthly; compensation for breach | 99.5% monthly | Best effort acceptable |
+| **Model change notification lead time** | 30 days minimum written notice before model version update | 14 days | Best effort |
+| **Incident notification SLA** | <4 hours for AI incidents affecting enterprise data | <24 hours | <72 hours |
+| **Security incident notification** | <2 hours | <4 hours | <24 hours |
+| **Data deletion SLA** | <72 hours on request | <30 days | <90 days |
+| **Audit response SLA** | <10 business days for questionnaire; right to on-site audit annually | <15 business days for questionnaire | <20 business days |
+
+---
+
+### Multi-Model Fallback Architecture
+
+**Problem:** Single-vendor dependency for a Tier 1 AI system creates operational risk. A vendor API outage, silent model update, or security incident may require immediate failover.
+
+**Recommendation:** For all Tier 1 systems, a documented fallback strategy is a mandatory pre-deployment gate requirement.
+
+**Fallback strategy options (by risk and complexity):**
+
+| Option | Description | When appropriate |
+|---|---|---|
+| **Active-active multi-model** | System routes inference across two or more models (e.g., primary: GPT-4o, fallback: Claude 3.5 Sonnet); load balanced or failover-triggered | High-availability Tier 1 systems; enterprises with multi-vendor contracts |
+| **Warm standby** | Secondary model configured and tested but not receiving production traffic; automated failover within defined RTO | Standard Tier 1 requirement; acceptable RTO >15 minutes |
+| **Degraded-mode operation** | System falls back to rule-based or pre-approved response templates when AI inference unavailable | Systems where partial service is preferable to no service; e.g., customer service (FAQ fallback) |
+| **Human escalation** | System fails open to human agents on AI unavailability | Decision-support and autonomous systems where human fallback is the safety default |
+
+**Minimum fallback requirements for Tier 1 systems:**
+
+- Fallback strategy documented in system card
+- Fallback RTO (Recovery Time Objective) defined
+- Fallback tested at pre-deployment gate and quarterly thereafter
+- Fallback activation is an automated or semi-automated operation (not manual-only)
+- Fallback event is logged and reported as a monitoring signal
+
+---
+
+### Silent Model Update Controls
+
+**Problem:** Vendor-hosted AI models can be silently updated without enterprise awareness, changing system behavior while the system card, validation reports, and monitoring baselines remain calibrated to the previous model version.
+
+**Controls:**
+
+| Control | Implementation |
+|---|---|
+| **Contractual notification requirement** | All Tier 1 and Tier 2 AI vendor contracts require written notice of model updates at least 14–30 days in advance (per SLA table above) |
+| **Behavioral fingerprinting** | A defined set of reference prompts with expected outputs (behavioral fingerprints) is run daily against the production model; statistically significant output distribution shift triggers alert (VND-03 signal) |
+| **Model version pinning** | Where the vendor API supports model version pinning (e.g., OpenAI `gpt-4o-2024-11-20`), Tier 1 systems pin to a specific version; migration to a new pinned version is treated as a material change |
+| **Version detection** | API response metadata logged; model version field monitored; version change detected within 1 API call |
+| **Update response procedure** | Vendor model update notification triggers: (1) behavioral fingerprint test against new version; (2) risk re-evaluation (CHG-02); (3) system card update (CHG-03); (4) approval if tier requires (CHG-04) |
+
+---
+
+*End of Part XIV.*
+
+---
+
+## Appendix — Version History (Updated)
+
+| Version | Date | Changes |
+|---|---|---|
+| 1.0 | April 2026 | Initial framework (Parts I–X, Deliverables A–H) |
+| 1.1 | April 2026 | Added Parts XI–XIV addressing: Control Implementation Architecture (enforcement points, prompt registry design, data plane mapping); Control Validation and Red-Teaming System (continuous validation, red-team pipeline, degradation detection); Developer Workflow Integration (CI/CD gates, pre-commit hooks, shadow AI detection, agent usage constraints); Governance Cost Model (time-to-approval SLAs, cost benchmarks, ROI metrics, control cost vs risk reduction matrix); Enhanced Vendor Governance (vendor AI risk scoring, performance SLAs by tier, multi-model fallback architecture, silent model update controls) |
+
+**Next review date:** April 2027 or at material regulatory change, whichever is earlier.
+
+---
+
+*© Enterprise. Internal governance document. Not for external distribution without authorization.*
+
 
 
 
