@@ -3206,6 +3206,355 @@ Two signals are added to the runtime monitoring catalog (Deliverable E):
 
 ---
 
+---
+
+# Part XVI — Gap Closure: Comparative Framework Analysis Findings (V1.3)
+
+## Provenance
+
+This part addresses gaps identified through a systematic comparison of EAGCF against 20 external frameworks, standards, evaluation programs, and policy documents conducted April 2026. The comparison series covered: NIST AI 100-1, 100-2, 100-3, 100-4, 100-5, 600-1, 700-1, 700-2 + ARIA Companion, 800-1, 800-2, IR 8596; ISO crosswalks (42001/23894, 42005, 5338/5339); OECD/EU AI Act crosswalk; Google DeepMind RMF gap analysis template; Singapore AI Verify crosswalks; and America's AI Action Plan.
+
+Full gap analysis documented in `EAGCF_Master_Gap_Consolidation.md`. This part incorporates Tier A (High priority, do now) and Tier B (Medium priority, near-term) gap closures.
+
+---
+
+## 16.1 Standards Watch and Normative Reference Updates (N-AP-03, N1005-01, N-42005-01)
+
+### NIST AI RMF Revision Watch (N-AP-03)
+
+The NIST AI Risk Management Framework (AI 100-1) — the governance backbone of this framework — is under revision per Executive Order 14179 ("Removing Barriers to American Leadership in Artificial Intelligence"), July 2025. The revision is expected to update the RMF's framing without materially altering its functional control architecture (Govern, Map, Measure, Manage functions and subcategories).
+
+**Watch obligation:** The AI Governance Office must monitor NIST publications for the revised AI RMF. Upon publication:
+1. Conduct a delta review comparing the revised RMF against EAGCF Part IV (governance framework) and Part V (control domains)
+2. Update normative references in Part IV §4.2 and Part IV §4.5
+3. Update the comparative matrix in Deliverable A (Part III) for the revised RMF
+4. Report material changes to the AI Risk Committee within 60 days of revised RMF publication
+
+**Current normative reference status:** NIST AI 100-1 (January 2023) — revision pending. All EAGCF controls remain grounded in the current RMF's functional architecture pending revision.
+
+### Emerging ISO Standards (N1005-01, N-42005-01)
+
+| Standard | Status | EAGCF Watch Action |
+|---|---|---|
+| **ISO/IEC 27090** — Cybersecurity — AI — Security threats and failures in AI systems | In development (CD stage) | When finalized: incorporate as normative reference in Part XI (enforcement architecture) and Part XII §12.3 (control validation) alongside NIST AI 100-2e2025. Designated as the primary ISO AI cybersecurity standard. |
+| **ISO/IEC 27091** — Cybersecurity and Privacy — AI — Privacy protection | In development (WD stage) | When finalized: evaluate against Part V §5.2 (DAT domain) and Deliverable G §G.8 (DPIA template) for alignment gaps. |
+| **ISO/IEC 42005** — AI System Impact Assessment | DIS stage (Draft International Standard) | When finalized: add to EAGCF normative reference stack alongside ISO 42001 and ISO 23894. EAGCF's AI Impact Assessment template (Deliverable G §G.3) and AI Use Case Registration (Deliverable G §G.5) together implement ISO 42005 requirements. |
+| **ISO/IEC 42001 conformity assessment** | In development | When finalized: update Part IV §4.8 (assurance model) with formal audit and certification process guidance. |
+
+*The AI Governance Office maintains a Standards Watch register updated quarterly.*
+
+---
+
+## 16.2 Tier 1 Gate Enhancements
+
+### 16.2.1 Interdisciplinary Team Diversity (N-01)
+
+**Gap identified by:** NIST AI 100-1, NIST AI 600-1, Google DeepMind RMF template, ISO 5338/5339 crosswalk (4 sources).
+
+**Addition to Tier 1 Required Controls (extends Part IV §4.2 Tier 1):**
+
+All Tier 1 AI systems must demonstrate that the core design and evaluation team includes representation from disciplines beyond technical AI development. At minimum, the following perspectives must be represented — by named individuals with relevant background — in the system card at pre-deployment gate:
+
+| Perspective | Minimum requirement | Verification |
+|---|---|---|
+| **Technical / ML** | AI/ML engineers or data scientists responsible for model and pipeline | Named in system card |
+| **Domain / business** | Subject matter expert for the specific use case domain (e.g., credit underwriter for credit AI; clinician for healthcare AI) | Named in system card |
+| **Risk / compliance** | Risk, legal, or compliance professional with AI governance responsibility | Named in system card |
+| **User / affected-population** | Individual with knowledge of the user population or affected community — may be internal (customer experience, accessibility team) or external (user research, community liaison) | Named in system card; external engagement documented if applicable |
+| **Privacy / ethics** | Privacy officer or AI ethics reviewer | Named in system card |
+
+**Evidence required:** System card — team composition section (mandatory field at Tier 1 pre-deployment gate).
+
+**Approval impact:** Pre-deployment gate for Tier 1 is blocked if any required perspective is absent and no documented compensating engagement is on file.
+
+---
+
+### 16.2.2 External Stakeholder Feedback Mechanisms (N-02 / N-03)
+
+**Gap identified by:** NIST AI 100-1, NIST AI 600-1, Google DeepMind RMF template, AI Verify crosswalk (4 sources).
+
+**Addition to Tier 1 Required Controls:**
+
+For Tier 1 AI systems deployed to external users or affecting external individuals:
+
+1. **Pre-deployment**: The AI Impact Assessment (Deliverable G §G.3) must include documentation of how feedback from affected external stakeholders was sought during design and impact assessment. This may be satisfied by: user research sessions, community liaison engagement, public consultation, or documented rationale for why external engagement was not feasible.
+
+2. **Post-deployment**: A mechanism for external users and affected individuals to submit feedback, raise concerns, or report harms from the AI system must be implemented and documented. This mechanism must:
+   - Be accessible to the user population (not require technical knowledge to use)
+   - Have a defined response process with SLA (feedback acknowledged within 5 business days)
+   - Feed into the quarterly AI Risk Committee review as a monitoring input
+
+**Evidence required:** Stakeholder engagement record in AI Impact Assessment; post-deployment feedback channel documentation in system card.
+
+---
+
+### 16.2.3 Structured Field Testing for Tier 1 Systems (N700-01 / N-ARIA-01)
+
+**Gap identified by:** NIST AI 700-2, ARIA Companion Document (2 sources).
+
+**Addition to Tier 1 Assurance Evidence Pack (extends Part VII §7.3):**
+
+Before production deployment, Tier 1 AI systems with significant end-user interaction volume must complete **structured field testing** with representative end-users in addition to red-team adversarial testing. Field testing requirements:
+
+| Field Testing Requirement | Specification |
+|---|---|
+| **User type** | Non-adversarial users representative of the intended deployment population (not red teamers or technical staff) |
+| **Interaction mode** | Realistic use-case scenarios drawn from the AI Use Case Registration (Deliverable G §G.5) intended use cases |
+| **Minimum sessions** | At least 20 unique user sessions covering the primary use case scenarios |
+| **Post-session capture** | Structured post-session questionnaire capturing: task completion, AI output utility, unexpected behavior observed, trust calibration |
+| **Analysis** | Findings documented in a field testing report; material gaps between field testing behavior and pre-deployment testing findings require investigation before deployment approval |
+
+**Evidence required:** Field testing report added to Tier 1 assurance evidence pack. Field testing report is a mandatory gate item for Tier 1 systems with external user interaction.
+
+**Scope exemption:** Tier 1 systems with no end-user interaction (e.g., back-office autonomous agents) are exempt from field testing; documented rationale for exemption required in system card.
+
+---
+
+### 16.2.4 EU AI Act Fundamental Rights Impact Assessment (N-OECD-01)
+
+**Gap identified by:** OECD/EU AI Act crosswalk (EU AI Act Art. 27).
+
+**Addition to Part IV §4.5 Regulatory Mapping — EU AI Act delta:**
+
+For enterprises deploying Tier 1 AI systems to individuals in the European Union, the EU AI Act Article 27 Fundamental Rights Impact Assessment (FRIA) is required for deployers (as defined in Art. 3(4)) of high-risk AI systems listed in Annex III.
+
+| FRIA Requirement | EAGCF Implementation |
+|---|---|
+| Identify use description and relevant fundamental rights affected | AI Use Case Registration §G.5 (extend to include fundamental rights impact field) |
+| Describe risk assessment steps taken | AI Impact Assessment §G.3 (extend framing to include rights-impact characterization) |
+| Document mitigation measures | AI Impact Assessment §G.3 — control mapping section |
+| Named deployer with accountability | System card — System Owner |
+| Where required by Member State: notification to market surveillance authority | Legal responsibility — outside EAGCF governance scope; Legal must track per deployment jurisdiction |
+
+**Evidence required for EU-scoped Tier 1 systems:** FRIA documentation as a supplement to the standard AI Impact Assessment, cross-referencing EAGCF §G.3 sections to Art. 27.2 fields.
+
+*Note: FRIA obligation applies to the deployer role. If the enterprise is acting only as a developer (as defined under EU AI Act), consult Legal for applicable obligations under Arts. 16–25.*
+
+---
+
+## 16.3 Concern-Raising and Whistleblower Pathway (N801-06)
+
+**Gap identified by:** NIST AI 800-1, Google DeepMind RMF template (2 sources).
+
+**Addition to Part IV §4.4 (Exception and Waiver Model) — extend to include concern-raising:**
+
+### AI Concern-Raising Pathway
+
+Beyond the formal exception/waiver process, the enterprise must provide a **documented pathway for employees to raise AI-related concerns** — including concerns about AI system behavior, governance control circumvention, ethical concerns, or safety observations — without requiring them to use the formal exception process or escalate through their direct management chain.
+
+**Concern-raising pathway requirements:**
+
+| Element | Requirement |
+|---|---|
+| **Channel** | Dedicated AI concern-reporting mechanism, distinct from general IT helpdesk and general compliance hotline. May be implemented via existing ethics hotline if AI-specific routing is added. |
+| **Confidentiality** | Reports may be submitted anonymously (where legally permissible in the applicable jurisdiction). Named reporters receive confirmation of receipt and outcome within 30 days. |
+| **Non-retaliation** | Explicit non-retaliation protection for good-faith AI concern submissions, consistent with applicable employment law. Non-retaliation policy documented and communicated to all employees with AI governance responsibilities. |
+| **Review process** | All submissions reviewed by the AI Governance Office (or the Chief Ethics Officer where that function exists) within 5 business days. Material concerns escalated to the AI Risk Committee. |
+| **Tracking** | All submissions logged in a concern register (separate from the exception register). Quarterly trend report to AI Risk Committee. Concern closure rate and average resolution time reported as KPIs. |
+| **Scope** | Covers: AI system behavior concerns; governance control bypass observations; ethical concerns about AI use case or output; third-party AI vendor behavior concerns; safety observations |
+
+**Evidence required:** Documented concern-raising mechanism (policy and channel specification); concern register; non-retaliation policy acknowledgment record for AI governance team.
+
+---
+
+## 16.4 External AI Incident Reporting (N801-07 / N600-05)
+
+**Gap identified by:** NIST AI 800-1, NIST AI 600-1, Google DeepMind RMF template (3 sources).
+
+**Addition to Part VII §7.2 (Incident Taxonomy) — external reporting requirement:**
+
+### AI Incident External Reporting Obligation
+
+For Severity 1 (S1 — Critical) AI incidents involving Tier 0/1 systems:
+
+| Reporting Obligation | Requirement |
+|---|---|
+| **Regulatory notification** | Legal and Compliance must assess regulatory notification requirements within 24 hours of S1 incident classification. Applicable notification windows vary by jurisdiction and sector (EU AI Act Art. 73; GDPR Art. 33; sector-specific requirements). |
+| **AI incident database** | For confirmed S1 AI incidents that do not require regulatory suppression, the enterprise should contribute an anonymized incident record to a recognized AI incident repository (AIID — AI Incident Database at incidentdatabase.ai; or CISA AI-ISAC when operational). Contribution is recommended, not mandatory, unless required by sector regulation. |
+| **AI-ISAC participation** | Enterprises classified as critical infrastructure operators should subscribe to DHS AI Information Sharing and Analysis Center (AI-ISAC) when operational and report AI-specific vulnerability and incident data per AI-ISAC protocols. |
+
+**Internal incident taxonomy addition** — extend the incident category table in Part VII §7.2:
+
+| Category | Definition | Examples |
+|---|---|---|
+| **Deepfake fraud incident** | AI-generated synthetic media (voice, video, image) used to impersonate individuals for fraud, social engineering, or unauthorized authentication | Voice cloning used for executive impersonation to authorize wire transfers; video deepfake used to bypass identity verification; AI-generated phishing using executive likeness |
+
+**Escalation for deepfake fraud incidents:** Classify as S1 (if financial loss or authentication bypass confirmed) or S2 (if attempt detected and blocked). Mandatory escalation to CISO + Legal within 1 hour of S1 classification.
+
+---
+
+## 16.5 Environmental Impact Monitoring Signals (N-06 / N600-01)
+
+**Gap identified by:** NIST AI 600-1, NIST AI 100-5, Google DeepMind template, AI Verify crosswalk (4 sources).
+
+**Addition to Deliverable E — Runtime Monitoring Signal Catalog:**
+
+| Signal ID | Signal | Definition | Tier 1 | Tier 2 | Tier 3 | Tier 4 | Escalation threshold |
+|---|---|---|---|---|---|---|---|
+| MON-21 | **Compute energy consumption** | Total energy consumption (kWh) for inference workloads per AI system, measured at the infrastructure layer. Baseline established at deployment; deviations tracked. | Monthly | Quarterly | Annual | Not required | >50% baseline deviation triggers cost and efficiency review |
+| MON-22 | **Inference carbon estimate** | Estimated CO₂-equivalent emissions per inference workload, calculated from energy consumption and grid carbon intensity of the compute region. | Monthly | Quarterly | Not required | Not required | Material increases trigger infrastructure or optimization review |
+
+*Note: Environmental monitoring is currently a recommended practice, not a mandatory control. It becomes mandatory for enterprises with public ESG reporting obligations or Tier 1 AI systems in jurisdictions with AI environmental disclosure requirements (e.g., EU sustainability reporting requirements where AI compute is material).*
+
+---
+
+## 16.6 Operational Risk Monitoring Signal Extensions
+
+### Over-Reliance Monitoring (N-ARIA-02)
+
+**Gap identified by:** ARIA Program Companion Document.
+
+| Signal ID | Signal | Definition | Tier 1 | Tier 2 | Tier 3 | Tier 4 | Escalation threshold |
+|---|---|---|---|---|---|---|---|
+| MON-23 | **User over-reliance signal** | Rate of AI interactions where human users accepted AI output without observable review or challenge — measured via: absence of follow-up questions, direct downstream action within <5 seconds of AI response, override rate decline trend over a rolling 30-day window | Continuous (where user interaction logging exists) | Monthly | Not required | Not required | Override rate decline >20% from 90-day baseline triggers model performance review and HITL configuration review |
+
+### Epistemic Overconfidence Monitoring (N-ARIA-03)
+
+| Signal ID | Signal | Definition | Tier 1 | Tier 2 | Tier 3 | Tier 4 | Escalation threshold |
+|---|---|---|---|---|---|---|---|
+| MON-24 | **Epistemic overconfidence rate** | Rate of AI outputs expressing high confidence (via language markers: "definitely", "certainly", "I am certain", numeric confidence >90%) on topics classified as uncertain, contested, or outside the model's known competency boundary. Distinct from factual error detection (MON-05) — this signal targets calibration failure, not factual incorrectness. | Continuous | Continuous | Not required | Not required | Rate >defined threshold triggers output monitoring review; calibration testing to be added to next red-team cycle |
+
+---
+
+## 16.7 Model Supply Chain and Provenance Enhancements
+
+### 16.7.1 AI Software Bill of Materials — SBOM (N1005-02)
+
+**Gap identified by:** NIST AI 100-5, NIST AI 600-1 (2 sources).
+
+**Extension to Domain 11 (Model Supply Chain) — new control MSC-09:**
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| MSC-09 | **AI Software Bill of Materials (AI-SBOM)** — For Tier 1 and Tier 2 AI systems using third-party models, fine-tuned models, or models with significant training data lineage complexity, an AI-SBOM is produced documenting: (1) base model identifier, version, and source; (2) training data sources (to the extent disclosed by the model provider); (3) third-party components integrated in the AI pipeline (retrieval systems, tool libraries, safety classifiers, embedding models); (4) fine-tuning or RLHF data summary (where enterprise-controlled). The AI-SBOM is maintained in the model card (MDL-05) and updated at each material component change. | P | Model Owner + System Owner | AI-SBOM artifact (structured or document form); model card — AI-SBOM section | Completeness audit at each model version update |
+
+### 16.7.2 Watermarking Quality Requirements (N1004-01)
+
+**Gap identified by:** NIST AI 100-4, NIST AI 100-5 (2 sources).
+
+**Extension to Domain 11 control MSC-05 (Model Watermarking):**
+
+Where watermarking is implemented (for enterprise-produced or fine-tuned model outputs), the watermarking implementation must be validated against the following quality attributes before production use:
+
+| Quality Attribute | Requirement |
+|---|---|
+| **Robustness** | Watermark survives standard post-processing operations (compression, format conversion, paraphrasing for text). Test against defined set of post-processing operations at validation. |
+| **Imperceptibility / low distortion** | Watermark does not materially degrade output quality as assessed by the output quality metrics defined for the system. |
+| **Capacity** | Watermark carries sufficient information to identify the originating system and output timestamp at minimum. |
+| **Security** | Watermark is resistant to known removal attacks for the threat model applicable to the system. For systems where adversarial watermark removal is a realistic threat, adversarial watermark removal testing is included in the red-team pipeline. |
+| **Efficiency** | Watermarking adds no more than defined latency overhead to output generation (threshold set at design time). |
+
+**Reference standards:** C2PA (Coalition for Content Provenance and Authenticity) specification for interoperable content provenance; SMPTE ST 2120 for media watermarking.
+
+### 16.7.3 Content Provenance — C2PA Reference (N1004-02)
+
+**Gap identified by:** NIST AI 100-4, NIST AI 100-5, NIST AI 600-1 (3 sources).
+
+**Extension to Domain 7 (Output Controls) — new control OUT-08:**
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| OUT-08 | **Content provenance credentials** — For Tier 1 and Tier 2 AI systems producing synthetic or AI-assisted content for external distribution (images, video, audio, documents, or text published under the enterprise's brand), the enterprise evaluates adoption of the C2PA (Coalition for Content Provenance and Authenticity) specification for attaching verifiable provenance credentials to AI-generated content. For systems where content authenticity verification is a user-facing commitment or regulatory requirement, C2PA or equivalent interoperable provenance standard adoption is mandatory. For other systems, C2PA adoption is recommended and the decision to adopt (or rationale for non-adoption) is documented in the system card. | P | System Owner + Legal | System card — content provenance approach; C2PA implementation record (where adopted); decision rationale (where not adopted) | — |
+
+### 16.7.4 Deepfake Fraud as Explicit Threat Category (N8596-01)
+
+**Gap identified by:** NIST IR 8596 (Cyber AI Profile), NIST AI 100-4 (2 sources).
+
+**Extension to Domain 11 (Model Supply Chain) — new control MSC-10:**
+
+| Control ID | Control | Type | Owner | Evidence | Monitoring signal |
+|---|---|---|---|---|---|
+| MSC-10 | **AI-powered impersonation and deepfake fraud controls** — For enterprises operating AI systems with voice, video, or face interaction capabilities, and for any enterprise where AI-enabled impersonation fraud is in scope of the threat model (financial services, executive communications, customer authentication), explicit controls are implemented to detect and prevent deepfake-based fraud: (1) Executive voice and video authentication protocols that do not rely solely on audio/video for authorization of high-value transactions; (2) Liveness detection controls for AI-integrated identity verification systems; (3) AI-generated content detection at channels where external deepfake attacks are plausible (customer service voice lines, video calls for financial transactions); (4) Fraud escalation pathway for suspected deepfake impersonation events. | P+D | Security + Fraud + System Owner | Threat model entry for deepfake fraud; authentication protocol documentation; liveness detection configuration; detection capability test evidence | Deepfake detection events; liveness failure rate; suspected impersonation escalations |
+
+---
+
+## 16.8 Model Card Explainability Extension (N-09)
+
+**Gap identified by:** NIST AI 100-1, NIST AI 100-5, OECD/EU AI Act crosswalk, AI Verify crosswalk, ISO 5339 (5 sources — highest corroboration count in comparison series).
+
+**Extension to Part V Domain 3 (Model Controls) — MDL-05 (Model Card) mandatory fields:**
+
+The model card (MDL-05) is extended with a mandatory explainability specification section:
+
+| Required Explainability Field | Specification |
+|---|---|
+| **Explainability method** | The specific method(s) used to provide explanation of model decisions or outputs must be named (e.g., SHAP, LIME, counterfactual explanations, attention visualization, natural language explanation in output, human-readable decision tree approximation). "Inherently interpretable model" is an acceptable answer for simple models with documented justification. |
+| **Explanation audience** | Who the explanation is designed for: (a) technical reviewers / model validators; (b) operational users (decision-makers using AI output); (c) end-users or affected individuals receiving AI-determined outcomes. For Tier 1 systems affecting individuals, explanation must be available at the affected-individual level. |
+| **Explanation fidelity** | For post-hoc explanation methods: fidelity to underlying model behavior is assessed and documented (is the explanation an approximation or a ground-truth derivation?). Fidelity limitations are disclosed to explanation recipients. |
+| **Regulatory compliance** | Where the applicable regulatory context requires explanations to affected individuals (EU AI Act Art. 13; GDPR Art. 22; US adverse action notice requirements), the explanation method must be capable of satisfying that obligation. Compliance confirmation documented in model card. |
+
+*Note: This field is mandatory for Tier 1 systems (mandatory at pre-deployment gate) and recommended for Tier 2 systems. Tier 3/4 systems are exempt.*
+
+---
+
+## 16.9 Red-Team Attack Library Extension (N1002-01, N1004-05)
+
+**Addition to Part XII §12.4 Red-Team Pipeline — Attack Library:**
+
+The red-team attack library is extended with the following categories:
+
+### MITRE ATLAS Integration (N1002-01)
+
+MITRE ATLAS (Adversarial Threat Landscape for Artificial Intelligence Systems) is incorporated as a normative reference alongside NIST AI 100-2e2025 for the red-team attack library. ATLAS provides a tactic/technique taxonomy for AI adversarial attacks organized in a MITRE ATT&CK-compatible format.
+
+**Implementation requirement:** The red-team attack library must cross-reference applicable MITRE ATLAS techniques for each attack category. At minimum, the following ATLAS tactics must be represented in the attack library for Tier 1 systems:
+
+| ATLAS Tactic | Attack Library Coverage |
+|---|---|
+| **ML Attack Staging** | Reconnaissance against AI system capabilities; API probing |
+| **ML Model Access** | Model extraction; inversion attacks against Tier 1 decision models |
+| **Craft Adversarial Data** | Evasion attacks; data poisoning; backdoor triggers |
+| **Exfiltration via ML Inference** | Membership inference; training data extraction |
+| **Impact** | Model performance degradation; denial-of-model-service |
+
+**Reference:** MITRE ATLAS at atlas.mitre.org; cross-mapped to NIST AI 100-2e2025 NISTAML attack identifiers.
+
+### Audio Deepfake Detection (N1004-05)
+
+For Tier 1 systems with voice interaction, voice synthesis, or voice cloning capabilities, the following attack categories are added to the red-team attack library:
+
+| Attack Category | Description | Test requirement |
+|---|---|---|
+| **Voice cloning impersonation** | Synthetic voice generation mimicking authorized individual (executive, administrator, customer) to bypass voice-based authentication or authorization | Test voice authentication/authorization systems against synthetic voice samples generated by state-of-the-art TTS and voice cloning systems |
+| **Text-to-speech injection** | Audio input crafted to trigger specific AI behaviors (analogous to adversarial audio perturbations) | Test STT → LLM pipeline for adversarial audio inputs |
+| **Deepfake audio in enterprise communication channels** | AI-generated audio in phone/video calls for social engineering or authorization fraud | Test detection capability of any deployed audio authentication or liveness detection systems |
+
+**Evidence required:** Audio deepfake test results added to red-team report for applicable Tier 1 systems.
+
+---
+
+## 16.10 NIST AI RMF Self-Assessment Checklist (N-DM-01)
+
+**Gap identified by:** Google DeepMind RMF gap analysis template.
+
+EAGCF users seeking to demonstrate NIST AI RMF 1.0 compliance using EAGCF as the implementation vehicle may use the following self-assessment mapping as evidence of subcategory-level coverage. This checklist maps each AI RMF subcategory to the primary EAGCF control or governance element that addresses it.
+
+| AI RMF Subcategory | Primary EAGCF Location | Evidence Artifact |
+|---|---|---|
+| **GOVERN 1** — Policies, processes, procedures across organization | Part IV (governance framework); Part VI (operating model) | AI governance policy; framework document |
+| **GOVERN 2** — Accountability structures | Part VI §6.4 (RACI); Part VI §6.2 (governance office) | RACI matrix; governance org chart |
+| **GOVERN 3** — Workforce diversity, equity, inclusion | Part XVI §16.2.1 (team diversity gate); Part V §5.8 (FAI domain) | System card team composition; fairness assessment |
+| **GOVERN 4** — Organizational culture | Part VIII §8.3 (workforce enablement); Deliverable H | Training records; adoption metrics |
+| **GOVERN 5** — Robust stakeholder engagement | Part XVI §16.2.2 (stakeholder feedback); Part IV §4.3 | Stakeholder engagement record; feedback channel documentation |
+| **GOVERN 6** — Third-party / supply chain policies | Part V §5.9 (VND domain); Part V §5.11 (MSC domain) | Vendor assessment records; AI-SBOM (MSC-09) |
+| **MAP 1** — Context established | Deliverable G §G.5 (AI Use Case Registration) | Completed registration form |
+| **MAP 2** — AI system categorization | Deliverable B (risk-tiering model); Deliverable G §G.5 | Risk tier classification record |
+| **MAP 3** — Capabilities, usage, benefits and costs | Deliverable G §G.5; Part V §5.3 (MDL-05 model card) | Use case registration; model card |
+| **MAP 4** — Risks and benefits mapped | Deliverable G §G.3 (AI Impact Assessment) | Impact assessment report |
+| **MAP 5** — Impacts characterized | Deliverable G §G.3; Part IV §4.1 (risk tiering) | Impact assessment report; risk tier record |
+| **MEASURE 1** — Methods and metrics identified | Part VII §7.2 (KPI/KRI/KCI framework); Deliverable E | KPI/KRI dashboard; monitoring signal catalog |
+| **MEASURE 2** — Trustworthy characteristics evaluated | Part XII §12.2 (control validation matrix); Part V (15 control domains) | Control validation report; red-team report |
+| **MEASURE 3** — Risk tracking over time | Deliverable E (runtime monitoring); Part VII §7.1 (KRI) | Monitoring dashboard; KRI reports |
+| **MEASURE 4** — Feedback about measurement efficacy | Part VII §7.4 (corrective action); Part VI §6.6 (review cadences) | Corrective action records; governance review minutes |
+| **MANAGE 1** — Risks prioritized and responded to | Part IV §4.1 (5-tier model); Part VII §7.3 (incident taxonomy) | Risk tier record; incident response records |
+| **MANAGE 2** — Strategies to maximize benefits | Part VIII (adoption acceleration); Part XI (enforcement architecture) | Adoption metrics; enforcement configuration |
+| **MANAGE 3** — Third-party risks managed | Part V §5.9 (VND domain); Part V §5.11 (MSC domain) | Vendor assessment records |
+| **MANAGE 4** — Risk treatments documented and monitored | Part VII §7.4 (corrective action); Part VI §6.6 (review cadences) | Corrective action log; review cadence records |
+
+*Full self-assessment: Use this table in conjunction with the Google DeepMind NIST AI RMF Gap Analysis template structure (Do we do this already? / Which team? / How?) to produce an evidence-backed RMF compliance self-assessment.*
+
+---
+
 ## Appendix — Version History (Updated)
 
 | Version | Date | Changes |
@@ -3213,6 +3562,7 @@ Two signals are added to the runtime monitoring catalog (Deliverable E):
 | 1.0 | April 2026 | Initial framework (Parts I–X, Deliverables A–H) |
 | 1.1 | April 2026 | Added Parts XI–XIV: Control Implementation Architecture; Control Validation and Red-Teaming System; Developer Workflow Integration; Governance Cost Model; Enhanced Vendor Governance |
 | 1.2 | April 2026 | Added Part XV: 13 supplementary controls (SOC-01/02, PRM-09, TOL-08, OUT-07, AGT-10, MSC-07/08, CBJ-05, SEC-01) and 3 validation extensions (backdoor testing, cryptographic artifact verification, alignment verification) and 2 new monitoring signals (MON-19/20), derived from AIUC-1 crosswalk reconnaissance across NIST AI RMF, ISO 42001, EU AI Act, OWASP LLM Top 10, OWASP AIVSS, MITRE ATLAS, IBM AI Risk Atlas, Cisco AI Security Framework, and CSA AI Controls Matrix |
+| 1.3 | April 2026 | Added Part XVI: Gap closure from 20-source comparative framework analysis. Addresses Tier A (high priority) and Tier B (medium priority) gaps. Additions: standards watch register (N-AP-03, N1005-01); Tier 1 gate enhancements for interdisciplinary team diversity (N-01), external stakeholder feedback (N-02/N-03), structured field testing (N700-01), EU AI Act FRIA (N-OECD-01); concern-raising and whistleblower pathway (N801-06); external AI incident reporting (N801-07) and deepfake fraud incident category (N8596-01); environmental monitoring signals MON-21/22 (N-06); operational risk signals MON-23 (over-reliance, N-ARIA-02) and MON-24 (epistemic overconfidence, N-ARIA-03); supply chain enhancements: AI-SBOM (MSC-09, N1005-02), watermarking quality requirements (MSC-05 extension, N1004-01), C2PA provenance (OUT-08, N1004-02), deepfake fraud controls (MSC-10, N8596-01); model card explainability method specification (MDL-05 extension, N-09); red-team attack library extension: MITRE ATLAS integration (N1002-01), audio deepfake attacks (N1004-05); NIST AI RMF self-assessment checklist (N-DM-01) |
 
 **Next review date:** April 2027 or at material regulatory change, whichever is earlier.
 
