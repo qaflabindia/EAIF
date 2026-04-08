@@ -2,18 +2,20 @@
 ## *Synthesized Gaps Across All Comparison Documents — Prioritized Enhancement Roadmap*
 
 **Prepared:** April 2026
-**Sources:** 23 comparison documents covering NIST AI series, ISO standards, crosswalks, policy frameworks, and industry evaluation programs
-**EAGCF Reference:** Enterprise AI Governance and Control Framework (v1.3, 2026)
+**Sources:** 25 comparison documents covering NIST AI series, ISO standards, crosswalks, policy frameworks, and industry evaluation programs (complete series)
+**EAGCF Reference:** Enterprise AI Governance and Control Framework (v1.4, 2026)
 
 ---
 
 ## 1. Executive Summary
 
-Across 22 comparison documents, a total of **82 distinct gap items** (N-series identifiers) were identified against the EAGCF. Of these:
-- **15 gaps** are confirmed by 2 or more independent source documents (cross-document corroborated gaps)
+Across 25 comparison documents (complete series), a total of **91 distinct gap items** (N-series identifiers) were identified against the EAGCF. Of these:
+- **16 gaps** are confirmed by 2 or more independent source documents (cross-document corroborated gaps)
 - **12 gaps** are classified as High priority
-- **32 gaps** are classified as Medium priority
-- **38 gaps** are classified as Low priority
+- **34 gaps** are classified as Medium priority
+- **45 gaps** are classified as Low priority
+
+All High and Medium priority gaps have been addressed in EAGCF v1.3 and v1.4. Low priority gaps are tracked for V2.0 planning. Nine additional Low-priority gap items (N-IR8367-xx, N-IR8579-xx) were added in this final comparison tranche and addressed in EAGCF v1.4 Part XVII.
 
 EAGCF achieves the following aggregate coverage rates:
 - **NIST AI RMF 1.0 functions**: ~90%+ coverage (ISO 42001/23894 crosswalk)
@@ -108,6 +110,26 @@ These gaps are real but represent lower urgency items — either niche applicabi
 | **N-GCR-01** | **Framework effectiveness indicators**: Add 3–5 enterprise-level EAGCF outcome metrics to annual review cadence — use-case approval cycle time, Tier 1 incident rate, fast-lane utilization rate, audit finding rate | NIST GCR 26-069 §4–5 | Part VI §6.6 (annual framework review) |
 | **N-CSF-01** | **Coordinated vulnerability disclosure (CVD) process**: Add a formal CVD channel for AI systems — designated intake, 5-business-day acknowledgment SLA, 90-day remediation target, public disclosure policy | NIST CSF 2.0 ID.RA-08 | Part XII §12.1 (red-team pipeline: add CVD as optional Tier 1 evidence activity) |
 | **N-CSF-02** | **AI security in HR practices**: AI system access revocation in offboarding (24-hour SLA); AI security policy acknowledgment in onboarding for all RACI-named AI system owners | NIST CSF 2.0 GV.RR-04 | Part VI §6.4 (RACI: add HR integration note for AI security) |
+| **N-SP1270-01** | **Causal fairness testing**: Add proxy feature audit and causal analysis to Tier 1 fairness assessment — testing whether protected attribute membership is in the causal pathway to adverse outcomes via proxy features | NIST SP 1270 | Part V §5.8 (FAI domain) — extend FAI fairness testing protocol |
+| **N-SP1270-02** | **Fairness impossibility acknowledgment**: Add formal note in FAI-04 that mathematical fairness criteria (calibration, demographic parity, equalized odds) are mutually incompatible when base rates differ; require governance documentation of fairness criterion selection rationale | NIST SP 1270 | Part V §5.8 (FAI domain) — add FAI-04 impossibility note |
+| **N-IR8367-01** | **Audience-differentiated explainability architecture**: Formal distinction between interpretability (user gist comprehension) and explainability (mechanism disclosure) as distinct governance requirements; separate explanation artifacts for affected individuals vs. technical auditors; explanation consistency controls | NIST IR 8367 (7th source confirming N-09 cluster) | Part XVI §16.8 (MDL-05 extension) — add architecture field; Part IV §4.1 (Tier 1 gate) |
+| **N-IR8367-02** | **User population characterization for XAI design**: Target user numeracy, domain expertise, and vulnerability characterization; explanation format justification; user simulatability testing (≥5 users, ≥4/5 score) | NIST IR 8367 | Part XVI §16.8 (MDL-05 extension) — add population characterization field |
+| **N-IR8579-01** | **RAG corpus integrity and citation traceability controls**: Trusted corpus management (DAT-10), retrieval boundary enforcement (DAT-11), chunk-level citation requirement in OUT-06 extension, vector database and indirect prompt injection red-team attack patterns | NIST IR 8579 ipd | Part V §5.2 (DAT domain); Part V §5.7 (OUT-06); Part XII §12.1 |
+| **N-IR8579-02** | **LLM-as-judge governance controls**: Independence requirement, human calibration validation (IRR ≥ 0.7), evaluation-awareness bias testing, audit logging, threshold calibration, judge model governance | NIST IR 8579 ipd + NIST AI 800-2 | Part XVII §17.6 (new section); Part XII §12.1 |
+
+---
+
+## 4a. Final Tranche — Low Priority Gaps from Remaining Sources
+
+| Gap ID | Description | Source | Recommended Location |
+|---|---|---|---|
+| **N-AIDOC-01** | **Training data chain-of-custody**: DAT-04 extended to require source/license/transformation/version/transfer documentation for all Tier 1 model training data | AI Documentation Extended Outline | Part V §5.2 (DAT-04 extension) |
+| **N-AIDOC-02** | **Training protocol documentation**: Model card MDL-05 extended to include training framework, compute, DP parameters, evaluation during training | AI Documentation Extended Outline | Part V §5.3 (MDL-05 model card) |
+| **N-AIDOC-03** | **Incident linkage in model card**: Model card MDL-05 extended with living incident log section linked to Part VII §7.3 incident register | AI Documentation Extended Outline | Part V §5.3 (MDL-05) |
+| **N-AIDOC-04** | **Governance compliance attestation field**: Model card MDL-05 extended with EAGCF version, tier, active controls, exception status, regulatory compliance status | AI Documentation Extended Outline | Part V §5.3 (MDL-05) |
+| **N-AIDOC-05** | **Machine-readable model card format**: Watch item — evaluate ISO/IEC JTC 1/SC 42 machine-readable model card standard when finalized | AI Documentation Extended Outline | Watch item — add when standard finalized |
+| **N-IR8367-03** | **Adversarial misleading explanation controls**: Explanation-decision decoupling test, user exploitation explanation review, demographic-stratified explanation consistency testing | NIST IR 8367 | Part XII §12.1 (red-team attack library extension) |
+| **N-IR8579-03** | **RAGAS evaluation methodology reference**: RAGAS framework metrics (faithfulness ≥0.8, answer relevance ≥0.75, context precision/recall ≥0.70), evaluation dataset requirements, human correlation validation (r ≥ 0.70), cadence triggers | NIST IR 8579 ipd | Part XII §12.2 (control validation matrix) |
 
 ---
 
@@ -127,7 +149,7 @@ Gaps confirmed by 3 or more independent source documents — highest confidence,
 | **Deepfake fraud detection** (N8596-01) | NIST IR 8596, NIST AI 100-4 | 2 |
 | **Field testing for Tier 1 systems** (N700-01/N-ARIA-01) | NIST AI 700-2, ARIA Companion | 2 |
 | **Probabilistic calibration metrics** (N700-02) | NIST AI 700-1, NIST AI 800-2 | 2 |
-| **Explainability measurement (XAI method specification)** (N-09, N-IR8312) | NIST AI 100-1, NIST AI 100-5, OECD crosswalk, AI Verify, ISO 5339, NIST IR 8312 | 6 |
+| **Explainability / interpretability cluster** (N-09, N-IR8312, N-IR8367) | NIST AI 100-1, NIST AI 100-5, OECD crosswalk, AI Verify, ISO 5339, NIST IR 8312, NIST IR 8367 | **7** — highest in series |
 
 ---
 
@@ -155,6 +177,8 @@ Gaps confirmed by 3 or more independent source documents — highest confidence,
 | NIST IR 8312 (XAI Principles) | Explainability reference | 40 | 17 | 16 | 7 | 83% |
 | NIST GCR 26-069 (Standards Evaluation) | Meta-governance | 23 | 17 | 5 | 1 | 96% |
 | NIST CSF 2.0 (CSWP 29) | Cybersecurity framework | 90 | 82 | 5 | 3* | 97% |
+| NIST IR 8367 (Psychology of XAI) | Explainability reference — cognitive science | 48 | 25 | 20 | 3 | 94% |
+| NIST IR 8579 ipd (NCCoE LLM Security) | Applied RAG deployment security | 42 | 31 | 11 | 0 | 100% |
 
 ---
 
@@ -227,5 +251,6 @@ The following areas were assessed across multiple documents and found to have no
 ---
 
 *Master gap consolidation prepared as part of EAGCF continuous improvement program.*
-*Based on 23 comparison documents completed April 2026.*
-*EAGCF V1.3 addresses all Tier A and Tier B gap items. Tier C items deferred to V2.0 planning.*
+*Based on 25 comparison documents — complete series — completed April 2026.*
+*EAGCF V1.3 addresses all Tier A and Tier B gap items. EAGCF V1.4 addresses all remaining Medium/Low gap items from the final two comparison sources (NIST IR 8367, NIST IR 8579) plus structural inconsistency corrections and operational depth enhancements. Tier C items (V2.0 roadmap items) deferred to next major version.*
+*Comparison series covers: NIST AI 100-1, 100-2e2025, 100-3, 100-4, 100-5/100-5e2025, 600-1, 700-1, 700-2 + ARIA, 800-1, 800-2, IR 8312, IR 8367, IR 8579 ipd, IR 8596, GCR 26-069, SP 800-218A, SP 1270; ISO crosswalks (42001/23894, 42005, 5338/5339); OECD/EU AI Act; Google DeepMind; AI Verify; Americas AI Action Plan; NIST CSF 2.0; AI Documentation Extended Outline (25 sources total).*
