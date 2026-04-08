@@ -2,7 +2,7 @@
 ## *Synthesized Gaps Across All Comparison Documents — Prioritized Enhancement Roadmap*
 
 **Prepared:** April 2026
-**Sources:** 22 comparison documents covering NIST AI series, ISO standards, crosswalks, policy frameworks, and industry evaluation programs
+**Sources:** 23 comparison documents covering NIST AI series, ISO standards, crosswalks, policy frameworks, and industry evaluation programs
 **EAGCF Reference:** Enterprise AI Governance and Control Framework (v1.3, 2026)
 
 ---
@@ -106,6 +106,8 @@ These gaps are real but represent lower urgency items — either niche applicabi
 | **N-IR8312-02** | **Explanation meaningfulness validation**: For Tier 1 systems with end-user-facing explanations, add user simulatability check (5 representative users rate understandability ≥4/5 before deployment) | NIST IR 8312 §7.1 | Part XII §12.2 (control validation matrix) |
 | **N-IR8312-03** | **Knowledge limit IP protection note**: Add implementation note on IP exposure risk when designing knowledge-limit declarations (confidence thresholds, out-of-scope triggers) | NIST IR 8312 §2.3 | Part XVI §16.8 (MDL-05 extension) |
 | **N-GCR-01** | **Framework effectiveness indicators**: Add 3–5 enterprise-level EAGCF outcome metrics to annual review cadence — use-case approval cycle time, Tier 1 incident rate, fast-lane utilization rate, audit finding rate | NIST GCR 26-069 §4–5 | Part VI §6.6 (annual framework review) |
+| **N-CSF-01** | **Coordinated vulnerability disclosure (CVD) process**: Add a formal CVD channel for AI systems — designated intake, 5-business-day acknowledgment SLA, 90-day remediation target, public disclosure policy | NIST CSF 2.0 ID.RA-08 | Part XII §12.1 (red-team pipeline: add CVD as optional Tier 1 evidence activity) |
+| **N-CSF-02** | **AI security in HR practices**: AI system access revocation in offboarding (24-hour SLA); AI security policy acknowledgment in onboarding for all RACI-named AI system owners | NIST CSF 2.0 GV.RR-04 | Part VI §6.4 (RACI: add HR integration note for AI security) |
 
 ---
 
@@ -152,6 +154,7 @@ Gaps confirmed by 3 or more independent source documents — highest confidence,
 | NIST AI 100-3 (Glossary) | Terminology | 16 | 13 | 3 | 0 | 100% |
 | NIST IR 8312 (XAI Principles) | Explainability reference | 40 | 17 | 16 | 7 | 83% |
 | NIST GCR 26-069 (Standards Evaluation) | Meta-governance | 23 | 17 | 5 | 1 | 96% |
+| NIST CSF 2.0 (CSWP 29) | Cybersecurity framework | 90 | 82 | 5 | 3* | 97% |
 
 ---
 
@@ -224,5 +227,5 @@ The following areas were assessed across multiple documents and found to have no
 ---
 
 *Master gap consolidation prepared as part of EAGCF continuous improvement program.*
-*Based on 22 comparison documents completed April 2026.*
+*Based on 23 comparison documents completed April 2026.*
 *EAGCF V1.3 addresses all Tier A and Tier B gap items. Tier C items deferred to V2.0 planning.*
