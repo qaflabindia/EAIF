@@ -2,18 +2,18 @@
 ## *Synthesized Gaps Across All Comparison Documents — Prioritized Enhancement Roadmap*
 
 **Prepared:** April 2026
-**Sources:** 20 comparison documents covering NIST AI series, ISO standards, crosswalks, policy frameworks, and industry evaluation programs
-**EAGCF Reference:** Enterprise AI Governance and Control Framework (v1.0, 2026)
+**Sources:** 22 comparison documents covering NIST AI series, ISO standards, crosswalks, policy frameworks, and industry evaluation programs
+**EAGCF Reference:** Enterprise AI Governance and Control Framework (v1.3, 2026)
 
 ---
 
 ## 1. Executive Summary
 
-Across 20 comparison documents, a total of **78 distinct gap items** (N-series identifiers) were identified against the EAGCF. Of these:
-- **14 gaps** are confirmed by 2 or more independent source documents (cross-document corroborated gaps)
+Across 22 comparison documents, a total of **82 distinct gap items** (N-series identifiers) were identified against the EAGCF. Of these:
+- **15 gaps** are confirmed by 2 or more independent source documents (cross-document corroborated gaps)
 - **12 gaps** are classified as High priority
-- **31 gaps** are classified as Medium priority
-- **35 gaps** are classified as Low priority
+- **32 gaps** are classified as Medium priority
+- **38 gaps** are classified as Low priority
 
 EAGCF achieves the following aggregate coverage rates:
 - **NIST AI RMF 1.0 functions**: ~90%+ coverage (ISO 42001/23894 crosswalk)
@@ -102,6 +102,10 @@ These gaps are real but represent lower urgency items — either niche applicabi
 | **N-DM-02** | **Cross-functional ownership mapping**: Add table mapping each of EAGCF's 15 control domains to primary governance body owner and secondary stakeholder | DeepMind template | Part VI §6.4 (RACI) |
 | **N-AP-01** | **Life science biosecurity overlay**: For pharma/biotech enterprises with Federal funding, note mandatory nucleic acid synthesis screening requirement | Americas AI Action Plan | Part VIII §8.8 (sector overlays) |
 | **N-103-01** | **NIST AI Glossary reference**: In Part II §2.2, add pointer to NIST AI 100-3 online glossary as definitional authority for cross-domain AI terms | NIST AI 100-3 | Part II §2.2 (definitions) |
+| **N-IR8312-01** | **XAI adversarial attack category**: Add "explanation integrity attacks" to red-team attack library — LIME/SHAP scaffold attacks, fairwashing (surrogate model hides true unfairness), saliency manipulation attacks | NIST IR 8312 §6.3 | Part XII §12.1 (red-team attack library) |
+| **N-IR8312-02** | **Explanation meaningfulness validation**: For Tier 1 systems with end-user-facing explanations, add user simulatability check (5 representative users rate understandability ≥4/5 before deployment) | NIST IR 8312 §7.1 | Part XII §12.2 (control validation matrix) |
+| **N-IR8312-03** | **Knowledge limit IP protection note**: Add implementation note on IP exposure risk when designing knowledge-limit declarations (confidence thresholds, out-of-scope triggers) | NIST IR 8312 §2.3 | Part XVI §16.8 (MDL-05 extension) |
+| **N-GCR-01** | **Framework effectiveness indicators**: Add 3–5 enterprise-level EAGCF outcome metrics to annual review cadence — use-case approval cycle time, Tier 1 incident rate, fast-lane utilization rate, audit finding rate | NIST GCR 26-069 §4–5 | Part VI §6.6 (annual framework review) |
 
 ---
 
@@ -121,6 +125,7 @@ Gaps confirmed by 3 or more independent source documents — highest confidence,
 | **Deepfake fraud detection** (N8596-01) | NIST IR 8596, NIST AI 100-4 | 2 |
 | **Field testing for Tier 1 systems** (N700-01/N-ARIA-01) | NIST AI 700-2, ARIA Companion | 2 |
 | **Probabilistic calibration metrics** (N700-02) | NIST AI 700-1, NIST AI 800-2 | 2 |
+| **Explainability measurement (XAI method specification)** (N-09, N-IR8312) | NIST AI 100-1, NIST AI 100-5, OECD crosswalk, AI Verify, ISO 5339, NIST IR 8312 | 6 |
 
 ---
 
@@ -145,6 +150,8 @@ Gaps confirmed by 3 or more independent source documents — highest confidence,
 | NIST AI 100-5 (Standards Plan) | Standards strategy | 19 | 7 | 6 | 6 | 69% |
 | Americas AI Action Plan | Policy context | 26 | 8 | 14 | 3 | 85% |
 | NIST AI 100-3 (Glossary) | Terminology | 16 | 13 | 3 | 0 | 100% |
+| NIST IR 8312 (XAI Principles) | Explainability reference | 40 | 17 | 16 | 7 | 83% |
+| NIST GCR 26-069 (Standards Evaluation) | Meta-governance | 23 | 17 | 5 | 1 | 96% |
 
 ---
 
@@ -217,5 +224,5 @@ The following areas were assessed across multiple documents and found to have no
 ---
 
 *Master gap consolidation prepared as part of EAGCF continuous improvement program.*
-*Based on 20 comparison documents completed April 2026.*
-*EAGCF V1.1 enhancement roadmap: Tier A items to be addressed in Q2 2026; Tier B in Q3 2026; Tier C in V2.0 planning.*
+*Based on 22 comparison documents completed April 2026.*
+*EAGCF V1.3 addresses all Tier A and Tier B gap items. Tier C items deferred to V2.0 planning.*
