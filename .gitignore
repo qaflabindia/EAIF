@@ -1,0 +1,35 @@
+# Binary and reference documents
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.srt
+*.svgz
+*.xlsx
+*.xlsm
+*.docx
+*.doc
+*.odt
+*.webp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints
