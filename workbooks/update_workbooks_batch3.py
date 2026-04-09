@@ -22,8 +22,8 @@ Uniformity causes adoption tax. **Part VIII** mandates that high-risk systems fa
 **Goal**: Implement the binding risk-tiering logic from Deliverable B.
 """),
     nbf.v4.new_code_cell("""
-import grc_utils
-inventory = grc_utils.load_inventory('ai_inventory_master.csv')
+import aigrc_utils
+inventory = aigrc_utils.load_inventory('ai_inventory_master.csv')
 
 def determine_gate_path(risk_tier):
     \"\"\"Determines the governance path based on the framework's tiering model.\"\"\"

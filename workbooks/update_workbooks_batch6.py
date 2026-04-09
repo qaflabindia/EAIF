@@ -73,8 +73,8 @@ m18_cells = [
 **Goal**: Categorize the inventory into EU AI Act "High Risk" (Annex III) categories.
 """),
     nbf.v4.new_code_cell("""
-import grc_utils
-inventory = grc_utils.load_inventory('ai_inventory_master.csv')
+import aigrc_utils
+inventory = aigrc_utils.load_inventory('ai_inventory_master.csv')
 
 # EU AI Act Annex III - High Risk Categories mapping
 annex_iii_map = {
@@ -104,8 +104,8 @@ The final goal of AI GRC is to provide the Board with a quantitative view of res
 **Goal**: Generate the final AI Governance Scorecard.
 """),
     nbf.v4.new_code_cell("""
-import grc_utils
-inventory = grc_utils.load_inventory('ai_inventory_master.csv')
+import aigrc_utils
+inventory = aigrc_utils.load_inventory('ai_inventory_master.csv')
 
 # Pricing Residual Risk (Simple Model)
 # Residual Risk = (Risk Score * Business Value) * (1 - Control Effectiveness)

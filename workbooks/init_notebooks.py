@@ -32,7 +32,7 @@ for i, (fname, title) in enumerate(modules):
     nb['cells'] = [
         nbf.v4.new_markdown_cell(f"# Module {i}: {title}\n\n*Enterprise AI Governance, Risk & Control Expert Workbook*"),
         nbf.v4.new_markdown_cell("## 1. Introduction & Context\n\n[Theory from EAGCF Framework goes here]"),
-        nbf.v4.new_code_cell(f"import pandas as pd\nimport numpy as np\nimport grc_utils\n\n# Load the master inventory\ninventory = grc_utils.load_inventory('../ai_inventory_master.csv')\ninventory.head()"),
+        nbf.v4.new_code_cell(f"import pandas as pd\nimport numpy as np\nimport aigrc_utils\n\n# Load the master inventory\ninventory = aigrc_utils.load_inventory('../ai_inventory_master.csv')\ninventory.head()"),
         nbf.v4.new_markdown_cell("## 2. Practical Implementation\n\n[Python Code implementation goes here]"),
         nbf.v4.new_code_cell("# Placeholder for Module Implementation\ndef run_module():\n    print(f'Running Module {i}...')\n\nrun_module()")
     ]

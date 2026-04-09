@@ -25,10 +25,10 @@ Shared accountability is unaccountability. **Part VI** of the framework mandates
 **Goal**: Assign and verify ownership for the inventory.
 """),
     nbf.v4.new_code_cell("""
-import grc_utils
+import aigrc_utils
 import pandas as pd
 
-inventory = grc_utils.load_inventory('ai_inventory_master.csv')
+inventory = aigrc_utils.load_inventory('ai_inventory_master.csv')
 
 # Simulate a RACI Matrix for a specific high-risk use case
 case_id = inventory[inventory['risk_tier'].str.contains('High')].iloc[0]['id']
@@ -118,8 +118,8 @@ A risk register must survive front-page scrutiny. **Part V** provides the 15 con
 **Goal**: Map the inventory to the risk taxonomy (Strategic, Operational, Legal, Financial).
 """),
     nbf.v4.new_code_cell("""
-import grc_utils
-inventory = grc_utils.load_inventory('ai_inventory_master.csv')
+import aigrc_utils
+inventory = aigrc_utils.load_inventory('ai_inventory_master.csv')
 
 # Grouping by risk themes
 taxonomy_mapping = {
