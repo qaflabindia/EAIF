@@ -33,3 +33,6 @@ ENV/
 
 # Jupyter
 .ipynb_checkpoints
+
+# Workbook automation
+workbooks/*batch*.py
