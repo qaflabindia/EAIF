@@ -35,4 +35,5 @@ ENV/
 .ipynb_checkpoints
 
 # Workbook automation
-workbooks/*batch*.py
+workbooks/*.py
+!workbooks/aigrc_utils.py
