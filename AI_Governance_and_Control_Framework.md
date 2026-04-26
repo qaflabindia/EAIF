@@ -1,10 +1,11 @@
 # Enterprise AI Governance and Control Framework
 ### For Scaled Corporate Adoption
 
-**Version:** 1.0
+**Version:** 1.4
 **Date:** April 2026
 **Classification:** Internal Governance — Board, Risk, Audit, and Executive Distribution
 **Status:** Active
+**Acronym:** TAGOF
 
 ---
 
@@ -25,6 +26,14 @@
 - [Part VIII — Adoption Acceleration Blueprint](#part-viii--adoption-acceleration-blueprint)
 - [Part IX — Corporate Template Stacks and Enterprise Synthesis](#part-ix--corporate-template-stacks-and-enterprise-synthesis)
 - [Part X — Final Synthesis](#part-x--final-synthesis)
+- [Part XI — Control Implementation Architecture](#part-xi--control-implementation-architecture)
+- [Part XII — Control Validation and Red-Teaming System](#part-xii--control-validation-and-red-teaming-system)
+- [Part XIII — Developer Workflow Integration](#part-xiii--developer-workflow-integration)
+- [Part XIV — Governance Cost Model and Enhanced Vendor Governance](#part-xiv--governance-cost-model-and-enhanced-vendor-governance)
+- [Part XV — Supplementary Controls (AIUC-1 Crosswalk Gap Closure)](#part-xv--supplementary-controls-aiuc-1-crosswalk-gap-closure)
+- [Part XVI — Gap Closure: Comparative Framework Analysis Findings (V1.3)](#part-xvi--gap-closure-comparative-framework-analysis-findings-v13)
+- [Part XVII — Gap Closure: Psychological Explainability Architecture, LLM Deployment Security, and Operational Governance Enhancements (Version 1.4)](#part-xvii--gap-closure-psychological-explainability-architecture-llm-deployment-security-and-operational-governance-enhancements-version-14)
+- [Document Control](#document-control)
 
 ---
 
@@ -36,7 +45,7 @@ Enterprise AI adoption is accelerating. Most large organizations now operate doz
 
 This framework provides the operating architecture for governing enterprise AI at scale. It is not a policy statement or an ethics document. It is a control system: a structured set of accountability assignments, control designs, evidence requirements, monitoring mechanisms, and review processes that allow enterprises to adopt AI aggressively while remaining in control of risk, regulatorily defensible, and auditable.
 
-The framework is built on a composite of the most operationally proven governance standards — NIST AI RMF as the control backbone, ISO/IEC 42001 as the management system shell, ISO/IEC 23894 for AI risk methodology, COBIT and COSO for enterprise control integration, TOGAF for architecture authority, CRISP-ML(Q) and MLOps maturity for lifecycle execution discipline — supplemented by critical artifacts from the major AI platform providers: Google, AWS, Microsoft, IBM, NVIDIA, OpenAI, and Anthropic.
+The framework is built on a global composite of operationally proven governance standards and regulatory patterns. ISO/IEC 42001 provides the AI management system and certification shell; ISO/IEC 23894 and ISO/IEC 42005 provide AI risk and impact-assessment methodology; ISO/IEC 38507, OECD AI Principles, COBIT, COSO, TOGAF, CRISP-ML(Q), and MLOps maturity provide board, control, architecture, and lifecycle discipline. NIST AI RMF and the NIST Generative AI Profile are used as reference control taxonomies and GenAI risk sources, not as the governing source of authority. Jurisdictional overlays — including the EU AI Act, GDPR, UK regulatory expectations, Singapore AI Verify, United States sector rules where applicable, and local sector-specific obligations — are applied based on deployment context.
 
 It is designed to work in both centralized and federated enterprise operating models and to differentiate governance intensity by risk tier and AI system architecture. Low-risk systems move fast. High-risk systems receive proportionate scrutiny. Prohibited uses are stopped at intake.
 
@@ -48,7 +57,7 @@ The framework is organized into seventeen parts and eight mandatory deliverables
 
 **Fact:** Most enterprise AI governance programs fail not because the enterprise lacks principles, but because those principles are never translated into operational controls, evidence requirements, or monitoring signals.
 
-**Fact:** Most AI governance frameworks in the market address one of four enterprise needs — strategy, governance, architecture, or execution — but not all four. Enterprises that rely on a single framework inevitably develop blind spots.
+**Fact:** Most AI governance frameworks in the market address one or two enterprise needs — strategy, governance, risk and impact assessment, architecture, or execution — but not all five. Enterprises that rely on a single framework inevitably develop blind spots.
 
 **Fact:** Governance intensity applied uniformly across all AI systems — regardless of risk, architecture, or audience — is the most common cause of governance-induced adoption slowdown. The consequence is not better control; it is governance theater layered over uncontrolled high-risk systems while low-risk productivity tools are tied up in unnecessary approval cycles.
 
@@ -311,16 +320,17 @@ Governance requirements differ materially by AI system architecture. This framew
 
 # Part III — Comparative Framework Analysis
 
-## 3.1 The 4-Layer Stack Logic
+## 3.1 The 5-Layer Stack Logic
 
-No single framework covers all four enterprise needs. Enterprises that rely on one framework develop predictable blind spots: strong on principles, weak on controls; strong on lifecycle, weak on board governance; strong on architecture, silent on assurance. This section establishes the comparative baseline and recommends the composite stack.
+No single framework covers all five enterprise needs. Enterprises that rely on one framework develop predictable blind spots: strong on principles, weak on controls; strong on lifecycle, weak on board governance; strong on architecture, silent on assurance. This section establishes the comparative baseline and recommends the composite stack.
 
 | Layer | What it answers | Best primary | Best supporting |
 |---|---|---|---|
-| **Strategy / Policy** | Why AI, where to play, risk appetite, principles | ISO/IEC 38507 (board mandate) | EU AI Act applicability, TOGAF |
-| **Governance / Controls** | Who approves, who is accountable, what is evidenced | NIST AI RMF 1.0 + ISO/IEC 42001 | ISO 23894, COBIT, COSO ERM |
-| **Architecture / Design** | How systems, data, models, and controls are structured | TOGAF | SABSA, Google SAIF |
-| **Execution / Lifecycle** | How use cases are built, validated, deployed, monitored, retired | CRISP-ML(Q) + MLOps maturity | NIST AI RMF Playbook, GenAI Profile |
+| **Strategy / Policy** | Why AI, where to play, risk appetite, principles | ISO/IEC 38507 + OECD AI Principles | EU AI Act applicability, enterprise policy |
+| **Governance / Management System** | Who is accountable, what process governs, what evidence is reviewed | ISO/IEC 42001 | COBIT, COSO ERM |
+| **Risk / Impact Methodology** | How AI risks and impacts are identified, classified, assessed, and treated | ISO/IEC 23894 + ISO/IEC 42005 | NIST AI RMF, Singapore AI Verify |
+| **Architecture / Design** | How systems, data, models, and controls are structured | TOGAF + SABSA | Google SAIF, OWASP, MITRE ATLAS |
+| **Execution / Lifecycle** | How use cases are built, validated, deployed, monitored, and retired | CRISP-ML(Q) + MLOps maturity | NIST AI RMF Playbook, NIST GenAI Profile |
 
 ---
 
@@ -329,21 +339,21 @@ No single framework covers all four enterprise needs. Enterprises that rely on o
 **What it is:** A voluntary, sector-agnostic risk management framework organized around four functions — **Govern, Map, Measure, Manage** — published by the US National Institute of Standards and Technology in January 2023. Supported by a Playbook of suggested actions and a Generative AI Profile (NIST AI 600-1).
 
 **Practical enterprise value:**
-The RMF is the single most actionable cross-industry AI governance reference available. Its four-function structure maps cleanly onto enterprise operating model design: Govern creates the accountability and policy layer; Map identifies what AI systems exist and what risks they carry; Measure defines how risk is assessed; Manage specifies treatment, response, and recovery actions. The Playbook converts these functions into specific suggested actions that can be directly translated into control objectives and evidence requirements.
+The RMF is one of the most actionable publicly available cross-industry AI governance references. Its four-function structure maps cleanly onto enterprise operating model design: Govern creates the accountability and policy layer; Map identifies what AI systems exist and what risks they carry; Measure defines how risk is assessed; Manage specifies treatment, response, and recovery actions. The Playbook converts these functions into specific suggested actions that can be directly translated into control objectives and evidence requirements.
 
 **Governance utility — High.** Govern function addresses organizational roles, policies, culture, and accountability. Sufficient to anchor the governance operating model.
 
-**Control utility — High.** Map, Measure, and Manage functions collectively cover risk identification, impact assessment, control selection, testing, monitoring, and incident response. The most control-complete of any voluntary framework.
+**Control utility — High.** Map, Measure, and Manage functions collectively cover risk identification, impact assessment, control selection, testing, monitoring, and incident response. This makes the RMF a strong control taxonomy for completeness checks.
 
 **Assurance utility — Medium.** The RMF provides a structure for evidencing risk management activities but does not prescribe a management system or certification pathway. It must be paired with ISO/IEC 42001 for formal assurance.
 
 **Adoption ease — High.** Voluntary, free, and widely understood in enterprise governance, risk, and compliance teams. No certification body required.
 
-**Key strength:** Best cross-industry control taxonomy. Govern/Map/Measure/Manage is intuitive, MECE, and directly translatable into operational programs.
+**Key strength:** Strong cross-industry control taxonomy. Govern/Map/Measure/Manage is intuitive, MECE, and directly translatable into operational programs.
 
 **Key blind spot:** Thin on architecture design authority. Does not address how AI systems should be designed from a platform, data, or security architecture perspective. No certification path, which limits its leverage in procurement and regulatory contexts where evidenced management systems are preferred.
 
-**Enterprise use:** Use NIST AI RMF as the control structure backbone. Use its Govern function to design the governance operating model, Map function for use-case risk classification, Measure function for evaluation and testing requirements, and Manage function for treatment, monitoring, and incident response. Overlay the GenAI Profile for all generative AI and agentic use cases.
+**Enterprise use:** Use NIST AI RMF as a reference control taxonomy and completeness check. Map Govern, Map, Measure, and Manage into TAGOF controls where useful, but anchor global management-system assurance in ISO/IEC 42001 and risk/impact methodology in ISO/IEC 23894 and ISO/IEC 42005.
 
 ---
 
@@ -389,7 +399,7 @@ ISO/IEC 42001 provides the management system shell that NIST AI RMF lacks: leade
 
 **Key blind spot:** Does not prescribe specific controls. The management system shell must be filled with control content from NIST AI RMF, ISO/IEC 23894, or sector-specific standards. An ISO 42001 certificate without rigorous underlying control design provides assurance theater, not real assurance.
 
-**Enterprise use:** Use ISO/IEC 42001 as the formal governance shell — the management system that wraps and evidences the control framework. Use it to structure leadership accountability, policy documentation, management review, internal audit, and continual improvement. Use NIST AI RMF to populate the control content within that shell.
+**Enterprise use:** Use ISO/IEC 42001 as the formal governance shell — the management system that wraps and evidences the control framework. Use it to structure leadership accountability, policy documentation, management review, internal audit, and continual improvement. Use NIST AI RMF, Singapore AI Verify, and sector-specific references as control and assurance inputs within that shell.
 
 ---
 
@@ -801,15 +811,17 @@ No governance framework survives contact with reality without an exception proce
 
 ## 4.5 Regulatory Mapping Summary
 
-This framework is designed to be regulator-defensible across the following primary regulatory contexts. The mapping is a delta to the base framework, not a replacement for it.
+This framework is designed to be jurisdiction-neutral and regulator-defensible across major operating regions. The mapping below treats legal regimes as deployment-specific overlays. No single jurisdiction is presumed to be the default.
 
 | Regulatory instrument | Applicability trigger | Primary obligations driving enterprise control delta |
 |---|---|---|
+| **Global baseline** | Enterprise operates across multiple jurisdictions or publishes a group-wide AI governance standard | OECD AI Principles; ISO/IEC 42001; ISO/IEC 23894; ISO/IEC 42005; board accountability, management system, risk method, impact assessment, evidence, and continual improvement |
 | **EU AI Act** | Enterprise places AI systems on EU market; provides AI services to EU persons; uses AI in EU operations | Risk classification (prohibited / high-risk / GPAI); conformity assessment for Annex III high-risk systems; technical documentation; human oversight; accuracy, robustness, cybersecurity; AI literacy obligations; GPAI model obligations |
 | **GDPR / Data Protection** | Personal data processed by AI systems | Lawful basis for AI processing; automated decision-making rights (Article 22); data minimization in training and inference; data subject rights in AI context; DPIA for high-risk processing |
 | **UK AI Regulatory Framework** | UK operations or AI affecting UK persons | Cross-sectoral principles applied by sector regulators; DSIT guidance; sector-specific AI expectations |
-| **US sector regulation** | Sector-specific (banking, healthcare, insurance) | SR 11-7 (model risk management, banking); OCR guidance (AI in healthcare); state-level AI laws (Colorado AI Act, Illinois AIAA) |
-| **SEC AI guidance** | Public companies; investment advisers | Disclosure obligations; AI in investment decisions; conflicts of interest in AI-generated advice |
+| **Singapore AI governance / AI Verify** | Singapore operations, Singapore-facing services, or enterprises using AI Verify as an assurance reference | Testing and assurance expectations; transparency; explainability; robustness; fairness; accountability; model governance evidence |
+| **United States sector overlays** | US-regulated financial services, healthcare, insurance, securities, employment, or consumer-facing AI use cases | Sector-specific model risk, privacy, consumer protection, disclosure, adverse-action, healthcare, and state-level AI obligations where applicable |
+| **Local sector regulation** | Jurisdiction-specific regulated sectors including financial services, healthcare, insurance, employment, education, public services, critical infrastructure, and safety-critical systems | Sector-specific approval, disclosure, audit, safety, validation, recordkeeping, and supervisory access requirements in the applicable jurisdiction |
 
 *Note on OECD AI Principles:* The OECD AI Principles (adopted by 47 governments) provide the primary international policy anchor for board-level cross-border AI policy alignment. Enterprises operating across multiple jurisdictions may reference them in board-level policy statements as a cross-border normative baseline. They do not substitute for any of the above regulatory instruments and do not appear in control design, assurance design, or monitoring specifications within this framework.¹
 
@@ -2229,7 +2241,7 @@ Each Tier 1 and Tier 2 system maintains a system-level control matrix that maps 
 
 **Purpose:** The AI Impact Assessment (AIA) documents the anticipated positive and negative impacts of an AI system on affected individuals, groups, and the enterprise. It is mandatory for Tier 1 systems and recommended for Tier 2 systems. It is distinct from the Risk-Tiering Template (§G.3), which classifies the system's risk tier; the AIA provides the substantive analysis that informs and supports that classification.
 
-**Relationship to other templates:** The AI Use-Case Intake Form (§G.2) initiates the AIA by capturing high-level use case, purpose, and intended beneficiaries. The AIA develops that initial information into a full impact analysis. The Risk-Tiering Template (§G.3) uses the AIA findings to confirm or adjust the risk tier assignment. For EU Annex III high-risk systems, the AIA extends to satisfy EU AI Act Art. 27 FRIA requirements.
+**Relationship to other templates:** The AI Use-Case Intake Form (§G.2) initiates the AIA by capturing high-level use case, purpose, and intended beneficiaries. The AIA develops that initial information into a full impact analysis. The Risk-Tiering Template (§G.3) uses the AIA findings to confirm or adjust the risk tier assignment. For EU-scoped Tier 1 systems where Legal determines Article 27 applies, the AIA extends to satisfy EU AI Act FRIA requirements.
 
 **Required sections:**
 
@@ -2271,7 +2283,7 @@ Each Tier 1 and Tier 2 system maintains a system-level control matrix that maps 
 - Other fundamental rights affected (liberty, social security, health, education): identify and document
 
 **Section 7 — Mitigation Measures**
-- For each harm identified in Section 5: mitigation control identified (EAGCF domain and control ID where applicable)
+- For each harm identified in Section 5: mitigation control identified (TAGOF domain and control ID where applicable)
 - Residual risk assessment after mitigation
 - Monitoring signal(s) that will detect harm materialization (Deliverable E signal reference)
 
@@ -2408,7 +2420,7 @@ A complete enterprise AI governance framework must contain all of the following.
 | **HITL designed as a gate, not a sustained control** | Human review required before deployment; not monitored in production | HITL queue grows; reviewers approve without reviewing; HITL becomes theater within 3 months of deployment |
 | **Governance theater for low-risk; under-governance for high-risk** | Same committee review for code assistant and credit decisioning engine | Developer routes around governance for productivity tools; credit engine receives same superficial review and passes |
 | **No prohibited use operationalization** | Prohibited use list exists in policy; no intake-stage enforcement | Prohibited use cases are submitted, not automatically rejected; some proceed through governance due to committee oversight gap |
-| **Cross-border and jurisdiction risk ignored** | AI system infers in US data center on EU resident data; no adequacy mechanism documented | GDPR violation; regulatory action; legal exposure when individual exercises data subject rights |
+| **Cross-border and jurisdiction risk ignored** | AI system infers in a third-country data center on EU resident data; no adequacy mechanism documented | GDPR violation; regulatory action; legal exposure when individual exercises data subject rights |
 
 ---
 
@@ -2419,37 +2431,32 @@ A complete enterprise AI governance framework must contain all of the following.
 ### The Recommended Composite Stack
 
 ```
-STRATEGIC LAYER
-├── ISO/IEC 38507  .............. Board AI governance mandate
-├── EU AI Act  .................. Regulatory classification and compliance overlay
-└── Enterprise AI Policy  ....... Deliverable G.1 (enterprise-specific)
+GLOBAL GOVERNANCE BASELINE
+├── OECD AI Principles  .......... Cross-border policy anchor
+├── ISO/IEC 38507  ............... Board AI governance mandate
+├── ISO/IEC 42001  ............... AI management system + certification path
+├── ISO/IEC 23894  ............... AI risk management methodology
+├── ISO/IEC 42005  ............... AI system impact assessment
+└── Enterprise AI Policy  ........ Deliverable G.1
 
-GOVERNANCE AND CONTROLS LAYER
-├── NIST AI RMF 1.0  ............ Control structure backbone (Govern/Map/Measure/Manage)
-├── ISO/IEC 42001  .............. Management system shell + certification path
-├── ISO/IEC 23894  .............. AI risk management methodology
-├── COBIT  ...................... Enterprise IT governance and assurance integration
-└── COSO ERM  ................... Board and internal control integration
+CONTROL AND ASSURANCE REFERENCES
+├── NIST AI RMF 1.0  ............. Control taxonomy and completeness check
+├── NIST GenAI Profile  .......... GenAI-specific risk reference
+├── Singapore AI Verify  ......... Testing and assurance reference
+├── COBIT  ....................... Enterprise IT governance and assurance
+└── COSO ERM  .................... Board and internal control integration
 
-ARCHITECTURE LAYER
-├── TOGAF  ...................... Enterprise capability and reference architecture
-├── Google SAIF  ................ AI security architecture and threat controls
-└── SABSA  ...................... Business-driven security architecture (where required)
+JURISDICTIONAL OVERLAYS
+├── EU AI Act + GDPR  ............ EU legal obligations
+├── UK AI regulatory framework ... UK regulator-led expectations
+├── US sector rules  ............. US obligations where applicable
+└── Local sector regulation  ..... Deployment-specific legal obligations
 
-EXECUTION LAYER
-├── CRISP-ML(Q)  ................ Lifecycle phase gates + QA
-├── Google MLOps maturity  ...... Production ML pipeline discipline
-├── NIST AI RMF Playbook  ....... Control activities per lifecycle stage
-└── NIST GenAI Profile  ......... GenAI-specific risk and control extension
-
-TEMPLATE AND TOOLING LAYER
-├── Google Model Cards + Data Cards  .... Documentation templates
-├── Microsoft RAI Standard  ............. Policy template reference
-├── Microsoft Transparency Notes  ....... System documentation reference
-├── IBM watsonx.governance patterns  .... Model inventory + monitoring reference
-├── NVIDIA NeMo Guardrails  ............. GenAI/agentic runtime control library
-├── Anthropic RSP + minimal footprint   . Agentic governance design principles
-└── Deliverable G (13 templates)  ....... Enterprise consolidated template pack
+ARCHITECTURE AND EXECUTION LAYER
+├── TOGAF + SABSA  ............... Enterprise and security architecture
+├── Google SAIF + OWASP + MITRE .. AI security and adversarial threat controls
+├── CRISP-ML(Q) + MLOps maturity . Lifecycle execution discipline
+└── Deliverable G  ............... Enterprise consolidated template pack
 ```
 
 ---
@@ -2458,16 +2465,16 @@ TEMPLATE AND TOOLING LAYER
 
 | Enterprise need | Provided by |
 |---|---|
-| Control backbone | NIST AI RMF |
-| Management system and certification path | ISO/IEC 42001 |
-| AI risk methodology | ISO/IEC 23894 |
+| Global management system | ISO/IEC 42001 |
+| AI risk and impact methodology | ISO/IEC 23894 + ISO/IEC 42005 |
+| Control taxonomy and completeness check | NIST AI RMF + Singapore AI Verify |
 | Board governance mandate | ISO/IEC 38507 |
 | Enterprise IT governance and audit integration | COBIT |
 | Board and internal control integration | COSO ERM |
 | Architecture design authority | TOGAF |
 | AI security architecture | Google SAIF |
 | Lifecycle discipline | CRISP-ML(Q) + MLOps maturity |
-| GenAI-specific controls | NIST GenAI Profile |
+| GenAI-specific risk reference | NIST GenAI Profile |
 | Model documentation | Google Model Cards |
 | Policy template | Microsoft RAI Standard |
 | System documentation | Microsoft Transparency Notes |
@@ -2539,9 +2546,9 @@ Before this framework is published and adopted, the following validation questio
 - [x] Does it distinguish governance, controls, assurance, and monitoring as separate disciplines? **Yes — Section 2.3.**
 - [x] Does it differentiate all 10 archetypes including agentic single-agent, multi-agent, and open-weight? **Yes — Part II and Part V Section 5.3.**
 - [x] Does it provide actual operating mechanisms, not just principles? **Yes — RACI, gates, signal catalog, templates.**
-- [x] Are templates consolidated in a single location? **Yes — Deliverable G (G.1–G.13).**
+- [x] Are templates consolidated in a single location? **Yes — Deliverable G (G.1–G.14).**
 - [x] Does it include all 7 providers (Google, AWS, Microsoft, IBM, NVIDIA, OpenAI, Anthropic)? **Yes — Part IX.**
-- [x] Is OECD restricted to a single board-level footnote? **Yes — footnote 1 in Part IV only.**
+- [x] Is the framework globally anchored rather than jurisdiction-specific? **Yes — ISO/IEC, OECD, and jurisdictional overlays are explicit.**
 - [x] Is it board-usable, audit-usable, and regulator-defensible? **Yes — governance bodies, evidence pack, board reporting template.**
 - [x] Is risk tiering wired to lifecycle gate intensity? **Yes — Deliverable B explicitly wired to Deliverable D at every stage.**
 - [x] Does it include a governance misallocation diagnostic? **Yes — Section 8.5.**
@@ -2551,33 +2558,15 @@ Before this framework is published and adopted, the following validation questio
 
 ---
 
-*End of Framework.*
-
----
-
-## Document Control
-
-| Version | Date | Author | Changes |
-|---|---|---|---|
-| 1.0 | April 2026 | Enterprise AI Governance Office | Initial framework |
-
-**Next review date:** April 2027, or at material regulatory change (EU AI Act full applicability; significant supervisory guidance), whichever is earlier.
-
-**Distribution:** Board Risk and Audit Committee; Executive AI Council; AI Governance Office; AI Risk Committee; Business Owners (AI systems); Chief Risk Officer; CISO; Chief Privacy Officer; General Counsel; Internal Audit.
-
----
-
-*© Enterprise. Internal governance document. Not for external distribution without authorization.*
+*End of Part X.*
 
 ---
 
 # Part XI — Control Implementation Architecture
 
-## Review Finding Addressed
+## Purpose
 
-> *"You define controls, monitoring, and evidence — but you don't define where and how these controls are implemented in the engineering stack."*
-
-This part resolves that gap. It specifies the control plane, data plane, and enforcement points for every control domain in Part V. Without this, the framework is well-specified at design time but weakly implemented at runtime.
+This part specifies the control plane, data plane, and enforcement points for every control domain in Part V. It connects the framework's design-time controls to runtime engineering implementation.
 
 ---
 
@@ -2721,11 +2710,9 @@ The system prompt is the primary behavioral governor of any LLM-based AI system.
 
 # Part XII — Control Validation and Red-Teaming System
 
-## Review Finding Addressed
+## Purpose
 
-> *"You define monitoring signals, but not unit tests for controls or control validation pipelines. Controls exist but degrade silently."*
-
-This part defines how controls are continuously tested and validated — not just at deployment, but throughout the production lifecycle. A control that passes at deployment but degrades silently is not a control.
+This part defines how AI controls are continuously tested and validated throughout the production lifecycle. Controls that pass at deployment but degrade silently are treated as failed controls.
 
 ---
 
@@ -2852,11 +2839,9 @@ Red-teaming for AI systems must be a **continuous pipeline**, not a one-time pre
 
 # Part XIII — Developer Workflow Integration
 
-## Review Finding Addressed
+## Purpose
 
-> *"Developers will bypass governance. You don't define how this integrates with actual developer workflows — CI/CD integration, PR checks, pre-commit hooks, agent usage constraints."*
-
-This part specifies the developer-facing operating model: how governance is enforced in the build pipeline, not just in committee. Governance that is not embedded in developer workflows will be worked around.
+This part specifies the developer-facing operating model for embedding AI governance into CI/CD, pull-request review, pre-commit checks, and agent usage constraints.
 
 ---
 
@@ -3023,13 +3008,9 @@ Enterprises deploying AI coding assistants (GitHub Copilot, Cursor, internal cod
 
 # Part XIV — Governance Cost Model and Enhanced Vendor Governance
 
-## Review Finding Addressed (Cost Model)
+## Purpose
 
-> *"You argue governance should not slow adoption but you don't quantify cost of control, latency added, or developer friction. Without economics, governance drifts toward over-control."*
-
-## Review Finding Addressed (Vendor Governance)
-
-> *"No benchmarking model, no performance SLAs tied to risk, no fallback strategy. Missing: model degradation at vendor side, API outage impact, silent model updates."*
+This part adds the economic and vendor-management mechanisms needed to keep governance proportionate, adoption-aware, and resilient to third-party model or platform changes.
 
 ---
 
@@ -3329,9 +3310,9 @@ Two signals are added to the runtime monitoring catalog (Deliverable E):
 
 ## Provenance
 
-This part addresses gaps identified through a systematic comparison of EAGCF against 20 external frameworks, standards, evaluation programs, and policy documents conducted April 2026. The comparison series covered: NIST AI 100-1, 100-2, 100-3, 100-4, 100-5, 600-1, 700-1, 700-2 + ARIA Companion, 800-1, 800-2, IR 8596; ISO crosswalks (42001/23894, 42005, 5338/5339); OECD/EU AI Act crosswalk; Google DeepMind RMF gap analysis template; Singapore AI Verify crosswalks; and America's AI Action Plan.
+This part addresses gaps identified through a systematic comparison of TAGOF against 20 external frameworks, standards, evaluation programs, and policy documents conducted April 2026. The comparison series covered: NIST AI 100-1, 100-2, 100-3, 100-4, 100-5, 600-1, 700-1, 700-2 + ARIA Companion, 800-1, 800-2, IR 8596; ISO crosswalks (42001/23894, 42005, 5338/5339); OECD/EU AI Act crosswalk; Google DeepMind RMF gap analysis template; Singapore AI Verify crosswalks; and the United States AI Action Plan (as a jurisdictional policy input, not a baseline authority).
 
-Full gap analysis documented in `EAGCF_Master_Gap_Consolidation.md`. This part incorporates Tier A (High priority, do now) and Tier B (Medium priority, near-term) gap closures.
+Full gap analysis documented in the master gap consolidation file. This part incorporates Tier A (High priority, do now) and Tier B (Medium priority, near-term) gap closures.
 
 ---
 
@@ -3339,24 +3320,24 @@ Full gap analysis documented in `EAGCF_Master_Gap_Consolidation.md`. This part i
 
 ### NIST AI RMF Revision Watch (N-AP-03)
 
-The NIST AI Risk Management Framework (AI 100-1) — the governance backbone of this framework — is under revision per Executive Order 14179 ("Removing Barriers to American Leadership in Artificial Intelligence"), July 2025. The revision is expected to update the RMF's framing without materially altering its functional control architecture (Govern, Map, Measure, Manage functions and subcategories).
+The NIST AI Risk Management Framework (AI 100-1) remains the current RMF baseline for this framework. Following Executive Order 14179 (January 23, 2025) and the July 2025 United States AI Action Plan, the AI Governance Office must monitor NIST and CAISI publications for RMF revisions or companion guidance that materially affect TAGOF.
 
 **Watch obligation:** The AI Governance Office must monitor NIST publications for the revised AI RMF. Upon publication:
-1. Conduct a delta review comparing the revised RMF against EAGCF Part IV (governance framework) and Part V (control domains)
+1. Conduct a delta review comparing the revised RMF against TAGOF Part IV (governance framework) and Part V (control domains)
 2. Update normative references in Part IV §4.2 and Part IV §4.5
 3. Update the comparative matrix in Deliverable A (Part III) for the revised RMF
 4. Report material changes to the AI Risk Committee within 60 days of revised RMF publication
 
-**Current normative reference status:** NIST AI 100-1 (January 2023) — revision pending. All EAGCF controls remain grounded in the current RMF's functional architecture pending revision.
+**Current normative reference status:** NIST AI 100-1 (January 2023) — revision pending. All TAGOF controls remain grounded in the current RMF's functional architecture pending revision.
 
 ### Emerging ISO Standards (N1005-01, N-42005-01)
 
-| Standard | Status | EAGCF Watch Action |
+| Standard | Status | TAGOF Watch Action |
 |---|---|---|
 | **ISO/IEC 27090** — Cybersecurity — AI — Security threats and failures in AI systems | In development (CD stage) | When finalized: incorporate as normative reference in Part XI (enforcement architecture) and Part XII §12.3 (control validation) alongside NIST AI 100-2e2025. Designated as the primary ISO AI cybersecurity standard. |
 | **ISO/IEC 27091** — Cybersecurity and Privacy — AI — Privacy protection | In development (WD stage) | When finalized: evaluate against Part V §5.2 (DAT domain) and Deliverable G §G.8 (DPIA template) for alignment gaps. |
-| **ISO/IEC 42005** — AI System Impact Assessment | DIS stage (Draft International Standard) | When finalized: add to EAGCF normative reference stack alongside ISO 42001 and ISO 23894. EAGCF's AI Impact Assessment template (Deliverable G §G.14) and AI Use-Case Intake Form (Deliverable G §G.2) together implement ISO 42005 requirements. |
-| **ISO/IEC 42001 conformity assessment** | In development | When finalized: update Part IV §4.8 (assurance model) with formal audit and certification process guidance. |
+| **ISO/IEC 42005:2025** — AI system impact assessment | Published International Standard (May 2025) | Add to TAGOF's normative reference stack alongside ISO 42001 and ISO 23894. Conduct a targeted delta review against Deliverable G §G.14 and §G.2. |
+| **ISO/IEC 42001 conformity assessment** | In development | When finalized: update Part VII §7.3 (Assurance Evidence Pack) with formal audit and certification process guidance. |
 
 *The AI Governance Office maintains a Standards Watch register updated quarterly.*
 
@@ -3433,15 +3414,15 @@ Before production deployment, Tier 1 AI systems with significant end-user intera
 
 **Addition to Part IV §4.5 Regulatory Mapping — EU AI Act delta:**
 
-For enterprises deploying Tier 1 AI systems to individuals in the European Union, the EU AI Act Article 27 Fundamental Rights Impact Assessment (FRIA) is required for deployers (as defined in Art. 3(4)) of high-risk AI systems listed in Annex III.
+For EU-scoped Tier 1 systems, Legal must determine whether the EU AI Act Article 27 Fundamental Rights Impact Assessment (FRIA) applies. FRIA is required before use only for deployers of Article 6(2) high-risk AI systems where Article 27 applies: bodies governed by public law, private entities providing public services, and deployers of high-risk systems referred to in Annex III points 5(b) and 5(c), excluding Annex III point 2 systems.
 
-| FRIA Requirement | EAGCF Implementation |
+| FRIA Requirement | TAGOF Implementation |
 |---|---|
 | Identify use description and relevant fundamental rights affected | AI Use-Case Intake Form §G.2 (extend to include fundamental rights impact field) |
 | Describe risk assessment steps taken | AI Impact Assessment §G.14 (extend framing to include rights-impact characterization) |
 | Document mitigation measures | AI Impact Assessment §G.14 — control mapping section |
 | Named deployer with accountability | System card — System Owner |
-| Where required by Member State: notification to market surveillance authority | Legal responsibility — outside EAGCF governance scope; Legal must track per deployment jurisdiction |
+| Where required by Member State: notification to market surveillance authority | Legal responsibility — outside TAGOF governance scope; Legal must track per deployment jurisdiction |
 
 **Evidence required for EU-scoped Tier 1 systems:** FRIA documentation as a supplement to the standard AI Impact Assessment (§G.14), cross-referencing fields to Art. 27.2 requirements.
 
@@ -3543,7 +3524,7 @@ For Severity 1 (S1 — Critical) AI incidents involving Tier 0/1 systems:
 
 | Control ID | Control | Type | Owner | Evidence | Monitoring signal |
 |---|---|---|---|---|---|
-| MSC-09 | **AI Software Bill of Materials (AI-SBOM)** — For Tier 1 and Tier 2 AI systems using third-party models, fine-tuned models, or models with significant training data lineage complexity, an AI-SBOM is produced documenting: (1) base model identifier, version, and source; (2) training data sources (to the extent disclosed by the model provider); (3) third-party components integrated in the AI pipeline (retrieval systems, tool libraries, safety classifiers, embedding models); (4) fine-tuning or RLHF data summary (where enterprise-controlled). The AI-SBOM is maintained in the model card (MDL-05) and updated at each material component change. | P | Model Owner + System Owner | AI-SBOM artifact (structured or document form); model card — AI-SBOM section | Completeness audit at each model version update |
+| MSC-09 | **AI Software Bill of Materials (AI-SBOM)** — For Tier 1 and Tier 2 AI systems using third-party models, fine-tuned models, or models with significant training data lineage complexity, an AI-SBOM is produced documenting: (1) base model identifier, version, and source; (2) training data sources (to the extent disclosed by the model provider); (3) third-party components integrated in the AI pipeline (retrieval systems, tool libraries, safety classifiers, embedding models); (4) fine-tuning or RLHF data summary (where enterprise-controlled). The AI-SBOM is maintained in the model card (MDL-01 / §G.5) and updated at each material component change. | P | Model Owner + System Owner | AI-SBOM artifact (structured or document form); model card — AI-SBOM section | Completeness audit at each model version update |
 
 ### 16.7.2 Watermarking Quality Requirements (N1004-01)
 
@@ -3565,7 +3546,7 @@ Where watermarking is implemented (for enterprise-produced or fine-tuned model o
 
 **Technology maturity caveat — text watermarking:** As of 2025–2026, text-based LLM output watermarking is an **unsolved industry problem**. Statistical watermarking methods (e.g., token probability manipulation, "green/red list" watermarks) can be defeated by paraphrasing, translation, text editing, or adversarial extraction with moderate effort. No text watermarking scheme has achieved widespread adoption, third-party verification capability, or demonstrated robustness against determined adversarial removal. The "Robustness" quality attribute in the table above applies to this uncertain baseline — enterprises must calibrate their reliance on text watermarks accordingly.
 
-**Governance implication:** For enterprise-produced text content, watermarking should be implemented as a *partial* provenance control rather than a definitive one. C2PA content provenance credentials (OUT-08), audit logging of generation events (EP-8), and behavioral fingerprinting of model outputs provide complementary provenance evidence that is more robust than text watermarks alone. The MSC-05 control requirement is retained because: (a) even imperfect watermarks have forensic value in non-adversarial contexts (internal tracking, accidental redistribution); and (b) the technology is evolving rapidly and may reach practical robustness within the framework's review cycle. Risk acceptance documentation for Tier 1 systems relying on text watermarks must acknowledge this limitation.
+**Governance implication:** For enterprise-produced text content, watermarking should be implemented as a *partial* provenance control rather than a definitive one. C2PA content provenance credentials (OUT-08), audit logging of generation events (LOG-01 / EP-7), and behavioral fingerprinting of model outputs provide complementary provenance evidence that is more robust than text watermarks alone. The MSC-05 control requirement is retained because: (a) even imperfect watermarks have forensic value in non-adversarial contexts (internal tracking, accidental redistribution); and (b) the technology is evolving rapidly and may reach practical robustness within the framework's review cycle. Risk acceptance documentation for Tier 1 systems relying on text watermarks must acknowledge this limitation.
 
 **Image/video/audio watermarking:** Watermarking for non-text modalities (images, video, audio) is significantly more mature — C2PA + SMPTE standards provide practical interoperability. The maturity caveat above applies specifically to text output watermarking.
 
@@ -3595,16 +3576,16 @@ Where watermarking is implemented (for enterprise-produced or fine-tuned model o
 
 **Gap identified by:** NIST AI 100-1, NIST AI 100-5, OECD/EU AI Act crosswalk, AI Verify crosswalk, ISO 5339 (5 sources — highest corroboration count in comparison series).
 
-**Extension to Part V Domain 3 (Model Controls) — MDL-05 (Model Card) mandatory fields:**
+**Extension to Part V Domain 3 (Model Controls) — MDL-01 / §G.5 model card mandatory fields:**
 
-The model card (MDL-05) is extended with a mandatory explainability specification section:
+The model card (MDL-01 / §G.5) is extended with a mandatory explainability specification section:
 
 | Required Explainability Field | Specification |
 |---|---|
 | **Explainability method** | The specific method(s) used to provide explanation of model decisions or outputs must be named (e.g., SHAP, LIME, counterfactual explanations, attention visualization, natural language explanation in output, human-readable decision tree approximation). "Inherently interpretable model" is an acceptable answer for simple models with documented justification. |
 | **Explanation audience** | Who the explanation is designed for: (a) technical reviewers / model validators; (b) operational users (decision-makers using AI output); (c) end-users or affected individuals receiving AI-determined outcomes. For Tier 1 systems affecting individuals, explanation must be available at the affected-individual level. |
 | **Explanation fidelity** | For post-hoc explanation methods: fidelity to underlying model behavior is assessed and documented (is the explanation an approximation or a ground-truth derivation?). Fidelity limitations are disclosed to explanation recipients. |
-| **Regulatory compliance** | Where the applicable regulatory context requires explanations to affected individuals (EU AI Act Art. 13; GDPR Art. 22; US adverse action notice requirements), the explanation method must be capable of satisfying that obligation. Compliance confirmation documented in model card. |
+| **Regulatory compliance** | Where the applicable regulatory context requires explanations to affected individuals (EU AI Act Art. 13; GDPR Art. 22; applicable adverse action notice requirements), the explanation method must be capable of satisfying that obligation. Compliance confirmation documented in model card. |
 
 *Note: This field is mandatory for Tier 1 systems (mandatory at pre-deployment gate) and recommended for Tier 2 systems. Tier 3/4 systems are exempt.*
 
@@ -3650,29 +3631,29 @@ For Tier 1 systems with voice interaction, voice synthesis, or voice cloning cap
 
 **Gap identified by:** Google DeepMind RMF gap analysis template.
 
-EAGCF users seeking to demonstrate NIST AI RMF 1.0 compliance using EAGCF as the implementation vehicle may use the following self-assessment mapping as evidence of subcategory-level coverage. This checklist maps each AI RMF subcategory to the primary EAGCF control or governance element that addresses it.
+TAGOF users seeking to demonstrate NIST AI RMF 1.0 compliance using TAGOF as the implementation vehicle may use the following self-assessment mapping as evidence of subcategory-level coverage. This checklist maps each AI RMF subcategory to the primary TAGOF control or governance element that addresses it.
 
-| AI RMF Subcategory | Primary EAGCF Location | Evidence Artifact |
+| AI RMF Subcategory | Primary TAGOF Location | Evidence Artifact |
 |---|---|---|
 | **GOVERN 1** — Policies, processes, procedures across organization | Part IV (governance framework); Part VI (operating model) | AI governance policy; framework document |
-| **GOVERN 2** — Accountability structures | Part VI §6.4 (RACI); Part VI §6.2 (governance office) | RACI matrix; governance org chart |
-| **GOVERN 3** — Workforce diversity, equity, inclusion | Part XVI §16.2.1 (team diversity gate); Part V §5.8 (FAI domain) | System card team composition; fairness assessment |
+| **GOVERN 2** — Accountability structures | Part VI §6.2 (RACI); Part VI §6.1 (governance bodies) | RACI matrix; governance org chart |
+| **GOVERN 3** — Workforce diversity, equity, inclusion | Part XVI §16.2.1 (team diversity gate); Part IV §4.2 Principle 3 (fairness controls) | System card team composition; fairness assessment |
 | **GOVERN 4** — Organizational culture | Part VIII §8.3 (workforce enablement); Deliverable H | Training records; adoption metrics |
 | **GOVERN 5** — Robust stakeholder engagement | Part XVI §16.2.2 (stakeholder feedback); Part IV §4.3 | Stakeholder engagement record; feedback channel documentation |
-| **GOVERN 6** — Third-party / supply chain policies | Part V §5.9 (VND domain); Part V §5.11 (MSC domain) | Vendor assessment records; AI-SBOM (MSC-09) |
+| **GOVERN 6** — Third-party / supply chain policies | Part V §5.2 Domain 9 (VND); Part V §5.2 Domain 11 (MSC) | Vendor assessment records; AI-SBOM (MSC-09) |
 | **MAP 1** — Context established | Deliverable G §G.2 (AI Use-Case Intake Form) | Completed intake form |
 | **MAP 2** — AI system categorization | Deliverable B (risk-tiering model); Deliverable G §G.3 (Risk-Tiering Template) | Risk tier classification record |
-| **MAP 3** — Capabilities, usage, benefits and costs | Deliverable G §G.2; Part V §5.3 (MDL-05 model card) | Use-case intake form; model card |
+| **MAP 3** — Capabilities, usage, benefits and costs | Deliverable G §G.2; Deliverable G §G.5; Part V §5.2 Domain 3 (MDL-01) | Use-case intake form; model card |
 | **MAP 4** — Risks and benefits mapped | Deliverable G §G.14 (AI Impact Assessment) | Impact assessment report |
 | **MAP 5** — Impacts characterized | Deliverable G §G.14; Part IV §4.1 (risk tiering) | Impact assessment report; risk tier record |
 | **MEASURE 1** — Methods and metrics identified | Part VII §7.2 (KPI/KRI/KCI framework); Deliverable E | KPI/KRI dashboard; monitoring signal catalog |
 | **MEASURE 2** — Trustworthy characteristics evaluated | Part XII §12.2 (control validation matrix); Part V (15 control domains) | Control validation report; red-team report |
 | **MEASURE 3** — Risk tracking over time | Deliverable E (runtime monitoring); Part VII §7.1 (KRI) | Monitoring dashboard; KRI reports |
-| **MEASURE 4** — Feedback about measurement efficacy | Part VII §7.4 (corrective action); Part VI §6.6 (review cadences) | Corrective action records; governance review minutes |
+| **MEASURE 4** — Feedback about measurement efficacy | Part VII §7.2 (post-incident requirements); Part VI §6.3 (review cadences) | Corrective action records; governance review minutes |
 | **MANAGE 1** — Risks prioritized and responded to | Part IV §4.1 (5-tier model); Part VII §7.3 (incident taxonomy) | Risk tier record; incident response records |
 | **MANAGE 2** — Strategies to maximize benefits | Part VIII (adoption acceleration); Part XI (enforcement architecture) | Adoption metrics; enforcement configuration |
-| **MANAGE 3** — Third-party risks managed | Part V §5.9 (VND domain); Part V §5.11 (MSC domain) | Vendor assessment records |
-| **MANAGE 4** — Risk treatments documented and monitored | Part VII §7.4 (corrective action); Part VI §6.6 (review cadences) | Corrective action log; review cadence records |
+| **MANAGE 3** — Third-party risks managed | Part V §5.2 Domain 9 (VND); Part V §5.2 Domain 11 (MSC) | Vendor assessment records |
+| **MANAGE 4** — Risk treatments documented and monitored | Part VII §7.2 (post-incident requirements); Part VI §6.3 (review cadences) | Corrective action log; review cadence records |
 
 *Full self-assessment: Use this table in conjunction with the Google DeepMind NIST AI RMF Gap Analysis template structure (Do we do this already? / Which team? / How?) to produce an evidence-backed RMF compliance self-assessment.*
 
@@ -3702,12 +3683,12 @@ This part is additive — no existing Part I–XVI content is modified. All addi
 
 | Concept | Definition | Audience | Cognitive Goal | Regulatory Obligation |
 |---|---|---|---|---|
-| **Interpretability** | The capacity of affected persons to form an accurate gist-level mental representation of what the AI system does and why | Affected individuals receiving AI-determined outcomes; non-technical operational users | Accurate categorical or ordinal gist understanding sufficient to exercise rights, make decisions, or identify grounds for challenge | GDPR Art. 22 ("meaningful information"); EU AI Act Art. 13 ("adapted to the person's capacity"); ECOA adverse action notice |
+| **Interpretability** | The capacity of affected persons to form an accurate gist-level mental representation of what the AI system does and why | Affected individuals receiving AI-determined outcomes; non-technical operational users | Accurate categorical or ordinal gist understanding sufficient to exercise rights, make decisions, or identify grounds for challenge | GDPR Art. 22 ("meaningful information"); EU AI Act Art. 13 ("adapted to the person's capacity"); applicable adverse-action notice regimes |
 | **Explainability** | The capacity of technical reviewers to reconstruct the causal mechanism underlying a model's output | Developers, auditors, validators, regulators | Verbatim, mechanism-level, technically precise understanding sufficient for audit and challenge | EU AI Act technical documentation (Annex IV); SR 11-7 model documentation; internal audit requirements |
 
-**Extension to MDL-05 (Model Card) — Explainability Architecture Field:**
+**Extension to MDL-01 / §G.5 model card — Explainability Architecture Field:**
 
-The explainability specification section of the model card (MDL-05, Part XVI §16.8) is extended with the following additional mandatory field for Tier 1 systems:
+The explainability specification section of the model card (MDL-01 / §G.5, Part XVI §16.8) is extended with the following additional mandatory field for Tier 1 systems:
 
 | New Mandatory Field | Specification |
 |---|---|
@@ -3728,7 +3709,7 @@ The following assessment is added to the Tier 1 pre-deployment gate checklist:
 
 **Governance principle:** Explanation effectiveness is a function of both explanation design and recipient characteristics. An explanation that satisfies technical auditors may systematically fail to produce accurate gist in low-numeracy, low-domain-expertise, or vulnerable user populations. IR 8367 provides the empirical foundation: LIME/SHAP bar charts, the most commonly deployed explanation format, reliably fail to produce accurate categorical gist in users with low numeracy or low domain expertise.
 
-**Extension to MDL-05 — User Population Characterization Field (Tier 1 mandatory, Tier 2 recommended):**
+**Extension to MDL-01 / §G.5 — User Population Characterization Field (Tier 1 mandatory, Tier 2 recommended):**
 
 | Required Field | Specification |
 |---|---|
@@ -3767,11 +3748,11 @@ For AI systems using Retrieval-Augmented Generation (RAG) architecture, the foll
 | DAT-10 | **Trusted corpus management** — The document corpus used by the RAG system is governed as a security boundary: (a) a trusted source list documents approved data sources that may contribute documents; (b) a document approval workflow governs addition of new sources (Source Owner approval + Information Security review); (c) document integrity verification (cryptographic hash or equivalent) is applied to corpus documents at ingestion and validated on retrieval | P | System Owner + Data Owner | Trusted source list; corpus approval records; integrity verification implementation record | Corpus integrity violation alerts; unauthorized document insertion attempts |
 | DAT-11 | **Retrieval boundary enforcement** — For RAG systems, the LLM is instructed (via system prompt) and tested (via red-team probing) to: (a) cite only from retrieved corpus context, not from parametric knowledge, when answering in-scope queries; (b) explicitly disclose when no relevant corpus documents were retrieved rather than generating unsupported responses; (c) not treat retrieved metadata (author, classification, system paths) as citable content | P+D | System Owner | Retrieval boundary test report (pre-deployment); system prompt documentation | Retrieval boundary violation rate (where detectable via monitoring) |
 
-**Extension to Domain 7 (Output Controls) — OUT-06 citation traceability enhancement:**
+**Extension to Domain 5 (Retrieval Controls) — RET-07 citation traceability enhancement:**
 
-The citation traceability requirement in OUT-06 is extended for RAG systems:
+The citation traceability requirement in RET-07 is extended for RAG systems:
 
-> **For RAG systems:** Output traceability requires chunk-level or section-level citation — not document-level only. Each factual claim in a RAG system response must be traceable to the specific corpus chunk(s) that support it, identified by document title, date, and section/page reference at minimum. Citations must be surfaced to the user (or to auditors on request) in a format that allows verification. Where the LLM generates a claim that is not grounded in a retrieved chunk, the output validation layer (EP-6) must flag this as a potential hallucination requiring either citation supplementation or explicit uncertainty disclosure.
+> **For RAG systems:** Output traceability requires chunk-level or section-level citation — not document-level only. Each factual claim in a RAG system response must be traceable to the specific corpus chunk(s) that support it, identified by document title, date, and section/page reference at minimum. Citations must be surfaced to the user (or to auditors on request) in a format that allows verification. Where the LLM generates a claim that is not grounded in a retrieved chunk, the output validation layer (EP-5) must flag this as a potential hallucination requiring either citation supplementation or explicit uncertainty disclosure.
 
 **Extension to Part XII §12.1 — RAG-specific red-team attacks:**
 
@@ -3787,7 +3768,7 @@ The citation traceability requirement in OUT-06 is extended for RAG systems:
 
 **Gap identified by:** NIST IR 8579 ipd, NIST AI 800-2 (N800-04).
 
-**LLM-as-judge pattern:** An independent LLM that evaluates the output of a primary LLM for quality, factual grounding, policy compliance, or safety properties. Used as a production hallucination filter in RAG deployments (IR 8579), as an automated evaluation tool for red-team pipeline (N800-04), and as a runtime output classification layer (extending EP-6).
+**LLM-as-judge pattern:** An independent LLM that evaluates the output of a primary LLM for quality, factual grounding, policy compliance, or safety properties. Used as a production hallucination filter in RAG deployments (IR 8579), as an automated evaluation tool for red-team pipeline (N800-04), and as a runtime output classification layer (extending EP-5).
 
 **Governance requirements for LLM-as-judge deployments:**
 
@@ -3798,7 +3779,7 @@ The following requirements apply wherever LLM-as-judge is used as a governance c
 | **Independence** | The judge LLM must be architecturally distinct from the generating LLM — different model provider, different model version, or different model family. Self-assessment (a model judging its own outputs) is not an acceptable governance control. Where complete independence is not feasible, document the limitation and implement compensating human review for a sampled percentage of judge outputs. |
 | **Human calibration validation** | Before deployment as a governance control, the LLM-as-judge system must be validated against human expert rater labels on a representative sample (minimum 100 evaluated outputs). Interrater agreement between LLM judge and human raters must meet or exceed IRR ≥ 0.7 (Cohen's κ or equivalent). Results documented in control validation report. (Extends N800-04 requirement.) |
 | **Evaluation-awareness bias testing** | The judge LLM must be tested for evaluation-awareness effects — where the model produces artificially positive scores when it can detect it is in an evaluation context. Testing protocol: compare judge scores on labeled evaluation samples where system prompt reveals the evaluation context vs. where it does not; statistically significant difference indicates evaluation-awareness bias. (Extends N800-06 requirement.) |
-| **Audit logging** | All LLM-as-judge outputs (score, rationale, pass/fail determination) must be logged per EP-8 audit logging requirements, with the input text, judge output, and determination result captured for each event. Judge outputs constitute governance evidence and must be retained per the evidence retention policy. |
+| **Audit logging** | All LLM-as-judge outputs (score, rationale, pass/fail determination) must be logged per LOG-01 / EP-7 audit logging requirements, with the input text, judge output, and determination result captured for each event. Judge outputs constitute governance evidence and must be retained per the evidence retention policy. |
 | **Threshold calibration** | Pass/fail thresholds for the judge (e.g., "faithfulness ≥0.7 required to pass") must be set based on calibration data, not arbitrary defaults. Threshold-setting rationale documented. False positive and false negative rates at the selected threshold documented. |
 | **Judge model governance** | The judge LLM is subject to all VND and MSC controls applicable to the primary generating LLM — vendor assessment, model version tracking, behavioral fingerprinting, and AI-SBOM. A silent update to the judge LLM is a material change to the governance control. |
 
@@ -3842,9 +3823,9 @@ For Tier 1 and Tier 2 RAG-based GenAI deployments, the following structured eval
 
 **Gap identified by:** NIST GCR 26-069 (AI Standards Impact Evaluation concept paper).
 
-**Addition to Part VI §6.6 — Annual Framework Review Cadence:**
+**Addition to Part VI §6.3 — Annual Framework Review Cadence:**
 
-The EAGCF annual review (currently focused on regulatory change and gap closure) is extended to include a structured assessment of **framework effectiveness** — measuring whether the framework is producing its intended governance outcomes, not just whether it is being followed. The following indicators are tracked annually and reported to the AI Risk Committee:
+The TAGOF annual review (currently focused on regulatory change and gap closure) is extended to include a structured assessment of **framework effectiveness** — measuring whether the framework is producing its intended governance outcomes, not just whether it is being followed. The following indicators are tracked annually and reported to the AI Risk Committee:
 
 | Indicator | Definition | Target / Direction | Measurement Source |
 |---|---|---|---|
@@ -3887,7 +3868,7 @@ For enterprises operating Tier 1 AI systems accessible to external users or rese
 
 **Gap identified by:** NIST CSF 2.0 GV.RR-04.
 
-**Extension to Part VI §6.4 — RACI Matrix: HR Integration Note**
+**Extension to Part VI §6.2 — RACI Matrix: HR Integration Note**
 
 The RACI matrix and governance operating model are extended to include the following HR integration requirements for AI-related roles:
 
@@ -3910,7 +3891,7 @@ The RACI matrix and governance operating model are extended to include the follo
 
 **Gap identified by:** NIST SP 1270 (AI Bias, March 2022).
 
-**Addition to Part V §5.8 (FAI Domain) — FAI-04 Fairness Impossibility Note:**
+**Addition to Part IV §4.2 Principle 3 (Fairness and Non-Discrimination) — FAI-04 Fairness Impossibility Note:**
 
 The following note is added to the fairness assessment requirements (FAI-04) in Domain 8 (Fairness, Accountability, and Integrity Controls):
 
@@ -3920,7 +3901,7 @@ The following note is added to the fairness assessment requirements (FAI-04) in 
 >
 > **Prohibition:** Asserting that a system is "fair" without specifying the fairness criterion applied and acknowledging the impossibility constraint is not an acceptable governance statement for Tier 1 systems.
 
-**Addition to Part V §5.8 (FAI Domain) — Causal Fairness Testing Note (N-SP1270-01):**
+**Addition to Part IV §4.2 Principle 3 (Fairness and Non-Discrimination) — Causal Fairness Testing Note (N-SP1270-01):**
 
 > **Causal fairness testing:** Where feasible, fairness assessment should complement statistical disparity analysis with causal analysis — testing whether protected attribute membership is in the causal pathway to adverse outcomes (even when the attribute is not a direct input feature). Statistical parity metrics can be satisfied while a model discriminates via proxy features that are causally downstream of protected attributes (e.g., zip code as a proxy for race; credit card type as a proxy for socioeconomic status). Causal fairness analysis methods (causal graphs, proxy feature analysis) are documented in the fairness assessment. For Tier 1 systems, proxy feature audit is a required component of the fairness testing protocol.
 
@@ -3944,11 +3925,11 @@ For Tier 1 systems and for all enterprise-produced or fine-tuned models, the tra
 | **Version identifier** | Each training dataset version has an immutable identifier and cryptographic hash stored in the model registry |
 | **Transfer chain** | Where training data passed through third-party processors, service providers, or annotation vendors: each custody transfer documented |
 
-This chain-of-custody record is stored as a versioned artifact in the model registry and referenced in the model card (MDL-05 data section).
+This chain-of-custody record is stored as a versioned artifact in the model registry and referenced in the model card (MDL-01 / §G.5 data section).
 
 ### 17.12.2 Training Protocol Documentation for Tier 1 Systems (N-AIDOC-02)
 
-For enterprise-produced or fine-tuned Tier 1 models, the model card (MDL-05) is extended to document the training protocol:
+For enterprise-produced or fine-tuned Tier 1 models, the model card (MDL-01 / §G.5) is extended to document the training protocol:
 
 - Training framework and version (PyTorch, TensorFlow, JAX, etc.)
 - Training infrastructure and compute scale (GPU type, training duration, energy consumption estimate)
@@ -3959,7 +3940,7 @@ For enterprise-produced or fine-tuned Tier 1 models, the model card (MDL-05) is 
 
 ### 17.12.3 Incident Linkage in Model Card (N-AIDOC-03)
 
-The model card (MDL-05) is extended with an **incident log section** maintained as a living record:
+The model card (MDL-01 / §G.5) is extended with an **incident log section** maintained as a living record:
 
 - For each AI incident (Part VII §7.3) associated with the system: incident ID, date, severity, brief description, and remediation action
 - Incident log updated within 5 business days of incident closure
@@ -3967,11 +3948,11 @@ The model card (MDL-05) is extended with an **incident log section** maintained 
 
 ### 17.12.4 Governance Framework Compliance Field in Model Card (N-AIDOC-04)
 
-The model card (MDL-05) is extended with a **governance compliance attestation** section:
+The model card (MDL-01 / §G.5) is extended with a **governance compliance attestation** section:
 
 | Compliance Field | Content |
 |---|---|
-| **Governing framework** | EAGCF Version applied; risk tier; applicable domain controls active |
+| **Governing framework** | TAGOF Version applied; risk tier; applicable domain controls active |
 | **Last governance review date** | Date of most recent governance review; reviewer identity |
 | **Outstanding exceptions** | Any active waivers or exceptions (gap ID, expiry date); link to exception register entry |
 | **Regulatory compliance status** | For each applicable regulatory instrument (EU AI Act, GDPR, sector regulation): compliance status and key compliance artifacts |
@@ -3980,32 +3961,24 @@ The model card (MDL-05) is extended with a **governance compliance attestation**
 
 *Status: Pending standard finalization. This section is a watch item.*
 
-The NIST AI Documentation Extended Outline proposes a machine-readable model card format (pending ISO/IEC JTC 1/SC 42 standardization). When a stable format standard is finalized, EAGCF will evaluate adoption for all Tier 1 and Tier 2 model cards to enable automated compliance checking, portfolio-level reporting, and interoperability with AI governance platforms.
+The NIST AI Documentation Extended Outline proposes a machine-readable model card format (pending ISO/IEC JTC 1/SC 42 standardization). When a stable format standard is finalized, TAGOF will evaluate adoption for all Tier 1 and Tier 2 model cards to enable automated compliance checking, portfolio-level reporting, and interoperability with AI governance platforms.
 
 **Current state:** Maintain model cards in structured markdown/document format per §G.5. Where AI governance platform tooling supports a structured machine-readable format (e.g., model card JSON schema), adoption is encouraged and noted in the model card version history.
 
 ---
 
-## Appendix — Version History (Updated)
+## Document Control
 
-| Version | Date | Changes |
-|---|---|---|
-| 1.0 | April 2026 | Initial framework (Parts I–X, Deliverables A–H) |
-| 1.1 | April 2026 | Added Parts XI–XIV: Control Implementation Architecture; Control Validation and Red-Teaming System; Developer Workflow Integration; Governance Cost Model; Enhanced Vendor Governance |
-| 1.2 | April 2026 | Added Part XV: 13 supplementary controls (SOC-01/02, PRM-09, TOL-08, OUT-07, AGT-10, MSC-07/08, CBJ-05, SEC-01) and 3 validation extensions (backdoor testing, cryptographic artifact verification, alignment verification) and 2 new monitoring signals (MON-19/20), derived from AIUC-1 crosswalk reconnaissance across NIST AI RMF, ISO 42001, EU AI Act, OWASP LLM Top 10, OWASP AIVSS, MITRE ATLAS, IBM AI Risk Atlas, Cisco AI Security Framework, and CSA AI Controls Matrix |
-| 1.3 | April 2026 | Added Part XVI: Gap closure from 23-source comparative framework analysis. Addresses Tier A (high priority) and Tier B (medium priority) gaps. Additions: standards watch register (N-AP-03, N1005-01); Tier 1 gate enhancements for interdisciplinary team diversity (N-01), external stakeholder feedback (N-02/N-03), structured field testing (N700-01), EU AI Act FRIA (N-OECD-01); concern-raising and whistleblower pathway (N801-06); external AI incident reporting (N801-07) and deepfake fraud incident category (N8596-01); environmental monitoring signals MON-21/22 (N-06); operational risk signals MON-23 (over-reliance, N-ARIA-02) and MON-24 (epistemic overconfidence, N-ARIA-03); supply chain enhancements: AI-SBOM (MSC-09, N1005-02), watermarking quality requirements (MSC-05 extension, N1004-01), C2PA provenance (OUT-08, N1004-02), deepfake fraud controls (MSC-10, N8596-01); model card explainability method specification (MDL-05 extension, N-09); red-team attack library extension: MITRE ATLAS integration (N1002-01), audio deepfake attacks (N1004-05); NIST AI RMF self-assessment checklist (N-DM-01) |
-| 1.4 | April 2026 | Added Part XVII: Gap closure from remaining 2 sources (NIST IR 8367, NIST IR 8579 ipd) in the 25-source comparison series, plus structural inconsistency corrections and operational depth enhancements. **Part XVII additions:** audience-differentiated explainability architecture distinguishing interpretability from explainability as formally distinct requirements (N-IR8367-01); user population characterization for XAI design — numeracy, domain expertise, user simulatability validation (N-IR8367-02); adversarial misleading explanation controls — explanation-decision decoupling, user exploitation explanation, demographic-stratified consistency testing (N-IR8367-03); RAG corpus integrity controls — trusted corpus management (DAT-10), retrieval boundary enforcement (DAT-11), OUT-06 chunk-level citation enhancement, vector database red-team attacks (N-IR8579-01); LLM-as-judge governance pattern — independence, calibration, evaluation-awareness, audit logging (N-IR8579-02); RAGAS evaluation methodology with metric thresholds for RAG deployments (N-IR8579-03); framework effectiveness indicators for annual review (N-GCR-01); CVD channel for AI systems (N-CSF-01); AI security in HR practices — 24h offboarding SLA, onboarding training (N-CSF-02); fairness impossibility acknowledgment and causal fairness testing (N-SP1270-01/02); training data chain-of-custody, training protocol documentation, incident linkage in model card, governance compliance attestation field, machine-readable model card watch item (N-AIDOC-01 through N-AIDOC-05). **Structural corrections:** Executive Synthesis updated (17 parts); Deliverable C label added to Part V; G.14 AI Impact Assessment Template added to Deliverable G; all incorrect §G.5 (AI Use Case Registration) references corrected to §G.2; all incorrect §G.3 (AI Impact Assessment) references corrected to §G.14. **Operational depth enhancements:** waiver expiry triage protocol (4-path operational procedure); hyperscaler pragmatics with compensating control stack for non-negotiable vendor terms; governance ROI incident cost quantification methodology; text watermarking maturity caveat with image/audio contrast; training data memorization/extraction controls (DAT-09) with risk-tiered requirements and red-team extraction protocol. |
+| Version | Date | Author | Changes |
+|---|---|---|---|
+| 1.0 | April 2026 | Enterprise AI Governance Office | Initial framework: Parts I-X and Deliverables A-H |
+| 1.1 | April 2026 | Enterprise AI Governance Office | Added Parts XI-XIV: implementation architecture, control validation, developer workflow integration, cost model, and vendor governance |
+| 1.2 | April 2026 | Enterprise AI Governance Office | Added Part XV supplementary controls and monitoring extensions |
+| 1.3 | April 2026 | Enterprise AI Governance Office | Added Part XVI comparative gap-closure controls and regulatory mapping enhancements |
+| 1.4 | April 2026 | Enterprise AI Governance Office | Added Part XVII explainability, RAG security, LLM-as-judge, framework effectiveness, CVD, HR security, fairness, and model-card documentation enhancements |
 
 **Next review date:** April 2027 or at material regulatory change, whichever is earlier.
 
 ---
 
 *© Enterprise. Internal governance document. Not for external distribution without authorization.*
-
-
-
-
-
-
-
-
